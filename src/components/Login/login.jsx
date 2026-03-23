@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; 
 import './Login.css';
 
 const Login = () => {
@@ -7,35 +8,57 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Iniciando sesión con:", email);
+        console.log("Iniciando sesión con:", email, password);
+
     };
 
     return (
-        <div className="login-container">
-            <form className="login-form" onSubmit={handleSubmit}>
-                <h2 className="text-center mb-4">Iniciar Sesión</h2>
-                <div className="mb-3">
-                    <label className="form-label">Correo Electrónico</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
+        <div className="login-page-wrapper d-flex align-items-center justify-content-center">
+            <div className="login-card shadow-lg">
+                <div className="text-center mb-4">
+                    <h2 className="fw-bold display-6">Iniciar Sesión</h2>
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Contraseña</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit" className="btn btn-primary w-100">Ingresar</button>
-            </form>
+
+                <form onSubmit={handleSubmit}>
+
+                    <div className="mb-4 text-start">
+                        <label className="form-label fw-bold small">Correo Electrónico</label>
+                        <input
+                            type="email"
+                            className="form-control custom-input-login"
+                            placeholder="tu@email.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+
+
+                    <div className="mb-4 text-start">
+                        <label className="form-label fw-bold small">Contraseña</label>
+                        <input
+                            type="password"
+                            className="form-control custom-input-login"
+                            placeholder="••••••••"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+
+
+                    <button type="submit" className="btn btn-porter-login w-100 py-3 fw-bold mb-3">
+                        Ingresar
+                    </button>
+
+
+                    <div className="text-center mt-4">
+                        <p className="mb-0 text-muted small">
+                            ¿No tienes una cuenta? <Link to="/registro" className="registro-link-verde fw-bold">Regístrate aquí</Link>
+                        </p>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
