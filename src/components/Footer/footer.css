@@ -1,0 +1,75 @@
+.footer-wrapper {
+    background-color: #0a1622; /* Color oscuro profundo de la imagen */
+    color: #ffffff;
+    padding: 60px 4% 20px 4%;
+    width: 100%;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap; /* Para que en celular se vea bien */
+}
+
+.porter-info {
+    flex: 1.5;
+    min-width: 250px;
+}
+
+.logo-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.logo-brand h3 {
+    color: #00bfa5; /* El verde cian de la marca */
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.porter-info span {
+    color: #a0a0a0;
+    line-height: 1.6;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-column h4 {
+    margin-bottom: 25px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-column ul li {
+    color: #a0a0a0;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.footer-column ul li:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: center;
+    color: #707070;
+    font-size: 0.85rem;
+}

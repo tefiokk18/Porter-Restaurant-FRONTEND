@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './navbar.css';
 
 const Navbar = () => {
@@ -23,7 +24,7 @@ const Navbar = () => {
             <li><a href="#" className="active">Inicio</a></li>
             <li><a href="#">Quiénes Somos</a></li>
             <li><a href="#">Galería</a></li>
-            <li><a href="#">Reservas</a></li>
+            <Link to="/reservas">Reservas</Link>
             <li><a href="#">Contacto</a></li>
           </ul>
 
