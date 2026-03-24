@@ -1,18 +1,15 @@
-/* Hero Portada */
+
 .contacto-hero-img {
     background-color: #1a1a1a;
-    /* Fondo negro mientras no pones tu imagen */
-    /* Cuando tengas la imagen, usá: background-image: url('tu-link-aca'); */
+    background-image: url('/public/imagenes/restaurante4.gif'); 
     min-height: 350px;
     width: 100%;
 }
 
-/* Cajitas de iconos celestes (como en tu foto acordada) */
+
 .icon-box-celeste {
     background-color: #e3fcf7;
-    /* El celeste clarito */
     color: #38b2ac;
-    /* El color del icono */
     width: 50px;
     height: 50px;
     display: flex;
@@ -23,14 +20,13 @@
     flex-shrink: 0;
 }
 
-/* Mapa placeholder */
 .map-placeholder-box {
     background-color: #f1f3f5;
     height: 250px;
     border: 1px solid #dee2e6;
 }
 
-/* Estilo de los inputs */
+
 .porter-input {
     border-radius: 10px;
     border: 1px solid #ced4da;
@@ -42,7 +38,7 @@
     box-shadow: 0 0 0 0.25rem rgba(56, 178, 172, 0.15);
 }
 
-/* Botón enviar verde */
+
 .btn-porter-enviar {
     background-color: #00796b;
     color: white;

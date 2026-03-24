@@ -1,14 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
 
 
 import Navbar from './components/Navbar/navbar';
 import Footer from './components/Footer/footer';
+
+
 import Registro from './components/Registro/registro';
 import Login from './components/Login/login';
-
 import Home from './pages/Home/home';
 import Reservas from './pages/Reservas/reservas';
 import Galeria from './pages/Galeria/galeria';
@@ -22,12 +23,16 @@ function App() {
 
       <main className="flex-grow-1">
         <Routes>
+
           <Route path="/" element={
             <>
               <Home />
               <AboutUs />
             </>
           } />
+
+
+          <Route path="/quienes-somos" element={<AboutUs />} />
 
 
           <Route path="/reservas" element={<Reservas />} />
@@ -37,13 +42,10 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
 
 
-          <Route path="/quienes-somos" element={<AboutUs />} />
-
-
           <Route path="*" element={
             <div className="container text-center py-5">
-              <h2 className="display-4 fw-bold">404</h2>
-              <p className="lead">Página no encontrada</p>
+              <h2 className="display-4 fw-bold mt-5">404</h2>
+              <p className="lead">Lo sentimos, la página que buscas no existe.</p>
             </div>
           } />
         </Routes>

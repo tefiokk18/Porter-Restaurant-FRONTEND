@@ -1,31 +1,80 @@
-import React from 'react';
-import './galeria.css';
+import React, { useState } from 'react';
+import './Galeria.css';
 
 const Galeria = () => {
-    const imagenes = [
-        { id: 1, src: '/public/imagenes/comida1.avif', alt: 'Plato Principal' },
-        { id: 2, src: '/public/imagenes/comida2.jpg', alt: 'Especialidad' },
-        { id: 3, src: '/public/imagenes/comida3.jpg', alt: 'Postre' },
-        { id: 4, src: '/public/imagenes/bebida1.jpg', alt: 'Coctelería' },
-        { id: 5, src: '/public/imagenes/restaurante1.jpg', alt: 'Nuestro Salón' },
-    ];
+    const [filtro, setFiltro] = useState('Todas');
+
+    const datosGaleria = {
+        'Chefs': [
+            { id: 1, src: '/imagenes/chef1.avif', alt: 'Chef Martín Rodríguez' },
+            { id: 2, src: '/imagenes/chef2.avif', alt: 'Sommelier Ana Laura García' },
+            { id: 3, src: '/imagenes/chef3.avif', alt: 'Chef Pastelero Carlos Fernández' },
+        ],
+        'Comida': [
+            { id: 4, src: '/imagenes/platoprincipal.jpg', alt: 'Plato Principal' },
+            { id: 5, src: '/imagenes/entrada.jpg', alt: 'Entrada Especial' },
+            { id: 6, src: '/imagenes/postre.jpg', alt: 'Postre de la Casa' },
+        ],
+        'Lugar': [
+            { id: 7, src: '/imagenes/restaurante1.jpg', alt: 'Nuestro Salón Principal' },
+            { id: 8, src: '/imagenes/restaurante2.jpg', alt: 'La Barra' },
+            { id: 9, src: '/imagenes/terraza.jpg', alt: 'Terraza' }, 
+        ],
+        'Bebidas': [
+            { id: 10, src: '/imagenes/tragos.jpg', alt: 'Cóctel de Autor' },
+            { id: 11, src: '/imagenes/vinos.jpg', alt: 'Selección de Vinos' }, 
+            { id: 12, src: '/imagenes/cerveza.jpg', alt: 'Cerveza Tirada' }, 
+        ],
+    };
+
+    const categorias = filtro === 'Todas' ? Object.keys(datosGaleria) : [filtro];
 
     return (
-        <section className="container py-5">
-            <h2 className="text-center mb-5 display-6 fw-bold text-uppercase">Nuestra Propuesta</h2>
-            <div className="row g-4">
-                {imagenes.map((img) => (
-                    <div key={img.id} className="col-12 col-sm-6 col-md-4">
-                        <div className="gallery-item shadow-sm">
-                            <img src={img.src} alt={img.alt} className="img-fluid rounded" />
-                            <div className="gallery-overlay">
-                                <span>{img.alt}</span>
-                            </div>
+        <div className="galeria-page-container bg-light">
+            <section className="galeria-hero d-flex align-items-center justify-content-center text-white text-center">
+                <div className="hero-overlay"></div>
+                <div className="position-relative z-3">
+                    <h1 className="display-3 fw-bold">Galería</h1>
+                    <p className="lead">Descubre nuestro espacio y creaciones</p>
+                </div>
+            </section>
+
+            <div className="container py-5 text-center">
+                <div className="d-flex flex-wrap justify-content-center gap-2 mb-5">
+                    {['Todas', 'Chefs', 'Comida', 'Lugar', 'Bebidas'].map((cat) => (
+                        <button
+                            key={cat}
+                            onClick={() => setFiltro(cat)}
+                            className={`btn btn-filter ${filtro === cat ? 'active' : ''}`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+
+
+                {categorias.map((categoria) => (
+                    <div key={categoria} className="mb-5 row-tematica">
+                        {filtro === 'Todas' && (
+                            <h3 className="text-start fw-bold mb-4 text-dark h4 border-start border-4 border-teal ps-3">
+                                {categoria}
+                            </h3>
+                        )}
+                        <div className="row g-4 justify-content-center">
+                            {datosGaleria[categoria].map((img) => (
+                                <div key={img.id} className="col-12 col-md-6 col-lg-4">
+                                    <div className="galeria-card bg-white p-2 shadow-sm rounded-4 overflow-hidden border-0">
+                                        <div className="img-wrapper rounded-3 overflow-hidden">
+                                            <img src={img.src} alt={img.alt} className="img-fluid galeria-img" />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 ))}
             </div>
-        </section>
+        </div>
     );
 };
 
