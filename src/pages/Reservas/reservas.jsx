@@ -83,7 +83,6 @@ const Reservas = () => {
         </div>
       </section>
 
-      {/* SECCIÓN INFORMACIÓN IMPORTANTE MODIFICADA */}
       <section className="info-extra">
         <h2 className="info-title">Información Importante</h2>
         <div className="info-grid">

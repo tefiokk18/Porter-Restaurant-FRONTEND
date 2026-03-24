@@ -86,23 +86,19 @@
   padding: 80px 0;
   background-color: #f9f9f9;
   display: flex;
-  justify-content: center; /* Centra el contenedor en la pantalla */
+  justify-content: center; 
 }
 
 .features-container {
   display: flex;
   flex-wrap: wrap; 
-  justify-content: center; /* CENTRA las tarjetas en la fila */
+  justify-content: center; 
   gap: 30px; 
-  max-width: 1100px; /* Reducimos un poco para forzar el quiebre */
+  max-width: 1100px; 
   width: 90%;
 }
 
 .feature-card {
-  /* CAMBIO CRUCIAL: 
-     No usamos flex: 1. 
-     Usamos un ancho fijo (320px) para que no intenten estirarse. 
-  */
   flex: 0 0 320px; 
   background-color: white;
   padding: 50px 30px; 
@@ -113,7 +109,6 @@
   align-items: center; 
   text-align: center;
   transition: transform 0.3s ease;
-  /* Eliminamos cualquier margin manual */
 }
 
 .feature-card:hover {
@@ -238,7 +233,7 @@
     font-size: 2rem;
   }
 }
-/*SECCION GALERIA*/
+
 .gallery-section {
   padding: 80px 4%;
   text-align: center;
@@ -285,7 +280,6 @@
   cursor: pointer;
 }
 
-/*SECCION RESERVA*/
 .cta-section {
   background-color: #00796b; 
   color: white;

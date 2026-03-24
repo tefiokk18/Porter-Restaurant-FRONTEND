@@ -6,15 +6,14 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import Navbar from './components/Navbar/navbar';
 import Footer from './components/Footer/footer';
-
-
-import Home from './components/Home/home';
-import Reservas from './pages/Reservas/reservas';
-import Login from './components/Login/login';
 import Registro from './components/Registro/registro';
-import Galeria from './components/Galeria/galeria';
-import Contacto from './components/Contacto/contacto';
-import AboutUs from './components/AboutUs/aboutus';
+import Login from './components/Login/login';
+
+import Home from './pages/Home/home';
+import Reservas from './pages/Reservas/reservas';
+import Galeria from './pages/Galeria/galeria';
+import Contacto from './pages/Contacto/contacto';
+import AboutUs from './pages/AboutUs/aboutus';
 
 function App() {
   return (

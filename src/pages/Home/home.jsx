@@ -42,10 +42,6 @@ const featuresData = [
 const FeatureCard = ({ icon, title, description }) => (
   <div className="feature-card">
     <div className="icon-container">
-      {/* CORRECCIÓN: 
-          1. La etiqueta <i> debe estar VACÍA (sin texto adentro).
-          2. Usamos className para pasar las clases de Bootstrap.
-      */}
       <i className={`bi bi-${icon}`}></i> 
     </div>
     <h3>{title}</h3>
@@ -136,7 +132,6 @@ const ReservationCTA = () => {
   );
 };
 
-// En tu componente Home, agrégalos al final:
 const Home = () => {
   return (
     <main>
