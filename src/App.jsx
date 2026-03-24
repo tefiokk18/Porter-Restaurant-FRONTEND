@@ -27,14 +27,12 @@ function App() {
           <Route path="/" element={
             <>
               <Home />
-              <AboutUs />
+              
             </>
           } />
 
 
           <Route path="/quienes-somos" element={<AboutUs />} />
-
-
           <Route path="/reservas" element={<Reservas />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />

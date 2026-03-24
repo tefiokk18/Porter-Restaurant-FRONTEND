@@ -1,75 +1,201 @@
+.reservas-page {
+  background-color: #f9f9f9;
+}
+
+.reservas-hero {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+              url('../../assets/img/hero-bg.jpg') no-repeat center center/cover;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.reservas-hero h1 { font-size: 3rem; margin: 0; }
+
+
+.form-section {
+  margin-top: -60px;
+  padding: 0 20px;
+}
+
+.form-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.form-card h2 { text-align: center; color: #0a2540; margin-bottom: 10px; }
+.form-subtitle { text-align: center; color: #666; margin-bottom: 30px; font-size: 0.9rem; }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
+.form-group label { font-weight: 600; margin-bottom: 8px; color: #333; font-size: 0.9rem; }
+
+input, select, textarea {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.radio-group {
+  display: flex;
+  gap: 30px;
+  margin-top: 5px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.btn-confirm {
+  width: 100%;
+  background: #007a6a;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.btn-confirm:hover { background: #006356; }
+
+.info-box {
+  background: #eefbff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 25px;
+  font-size: 0.85rem;
+  color: #005a6a;
+  border-left: 4px solid #007a6a;
+}
+
+.info-extra {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.info-extra h2 {
+  font-size: 1.8rem;
+  color: #0a2540;
+  margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.info-grid {
+  display: flex;
+  justify-content: center; 
+  gap: 25px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.info-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+  flex: 1;
+  max-width: 450px;
+  text-align: left;
+  border: 1px solid #f0f0f0;
+}
+
+.info-card h3 { color: #0a2540; font-size: 1.1rem; margin-bottom: 12px; }
+.info-card p { color: #555; font-size: 0.9rem; line-height: 1.5; margin: 0; }
+
 .footer-wrapper {
-    background-color: #0a1622; /* Color oscuro profundo de la imagen */
-    color: #ffffff;
-    padding: 60px 4% 20px 4%;
-    width: 100%;
+  background-color: #0a1622; 
+  color: #ffffff;
+  padding: 60px 4% 20px 4%;
+  width: 100%;
 }
 
 .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
-    flex-wrap: wrap; /* Para que en celular se vea bien */
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
 }
 
 .porter-info {
-    flex: 1.5;
-    min-width: 250px;
+  flex: 1.5;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.logo-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.logo-brand h3 {
-    color: #00bfa5; /* El verde cian de la marca */
-    font-size: 1.8rem;
-    font-weight: 700;
+.logo-brand-img {
+  height: 45px; 
+  width: auto;
+  object-fit: contain;
 }
 
-.porter-info span {
-    color: #a0a0a0;
-    line-height: 1.6;
+.logo-container h3 {
+  color: #00bfa5;
+  font-size: 1.6rem;
+  margin: 0;
+  font-weight: 700;
 }
 
-.footer-column {
-    flex: 1;
-    min-width: 200px;
+.porter-info p {
+  color: #a0a0a0;
+  line-height: 1.6;
+  font-size: 0.9rem;
+  margin: 0;
 }
 
-.footer-column h4 {
-    margin-bottom: 25px;
-    font-size: 1.2rem;
-    font-weight: 600;
-}
-
-.footer-column ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-column ul li {
-    color: #a0a0a0;
-    margin-bottom: 12px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.footer-column ul li:hover {
-    color: #ffffff;
-}
+.footer-column { flex: 1; min-width: 200px; }
+.footer-column h4 { margin-bottom: 25px; font-size: 1.1rem; color: #ffffff; }
+.footer-column ul { list-style: none; padding: 0; }
+.footer-column ul li { color: #a0a0a0; margin-bottom: 12px; font-size: 0.9rem; cursor: pointer; transition: 0.3s; }
+.footer-column ul li:hover { color: #00bfa5; }
 
 .footer-bottom {
-    margin-top: 50px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: center;
-    color: #707070;
-    font-size: 0.85rem;
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: center;
+  color: #707070;
+  font-size: 0.8rem;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+  .info-grid { flex-direction: column; align-items: center; }
+  .info-card { width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .form-row { grid-template-columns: 1fr; }
+  .reservas-hero h1 { font-size: 2.2rem; }
 }

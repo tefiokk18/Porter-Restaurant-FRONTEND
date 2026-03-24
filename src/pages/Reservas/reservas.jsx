@@ -1,16 +1,18 @@
 import React from 'react';
-import './Reservas.css';
+import './reservas.css';
 
 const Reservas = () => {
   return (
     <div className="reservas-page">
+      {/* Hero con fondo de imagen y overlay oscuro */}
       <section className="reservas-hero">
-        <div className="hero-overlay">
+        <div className="hero-content">
           <h1>Reservas</h1>
           <p>Asegura tu mesa en Porter</p>
         </div>
       </section>
 
+      {/* Sección del Formulario que se solapa con el hero */}
       <section className="form-section">
         <div className="form-card">
           <h2>Reserva tu Mesa</h2>
@@ -26,9 +28,12 @@ const Reservas = () => {
                 <label>🕒 Horario *</label>
                 <select required>
                   <option value="">Seleccionar</option>
-                  <option value="20:00">20:00</option>
-                  <option value="21:00">21:00</option>
-                  <option value="22:00">22:00</option>
+                  <option value="20:00">19:00</option>
+                  <option value="21:00">20:00</option>
+                  <option value="22:00">21:00</option>
+                  <option value="20:00">22:00</option>
+                  <option value="21:00">23:00</option>
+                  <option value="22:00">00:00</option>
                 </select>
               </div>
               <div className="form-group">
@@ -42,7 +47,7 @@ const Reservas = () => {
             </div>
 
             <div className="form-group">
-              <label>📍 Seleccionar Sucursal *</label>
+              <label className="label-sucursal">📍 Seleccionar Sucursal *</label>
               <div className="radio-group">
                 <label className="radio-label">
                   <input type="radio" name="sucursal" value="yerba-buena" required /> Yerba Buena
@@ -71,18 +76,19 @@ const Reservas = () => {
 
             <div className="form-group">
               <label>Solicitudes Especiales (Opcional)</label>
-              <textarea placeholder="Alergias, preferencias de mesa, ocasión especial, etc."></textarea>
+              <textarea placeholder="Alergias, preferencias de mesa, ocasión especial, etc." rows="3"></textarea>
             </div>
 
             <button type="submit" className="btn-confirm">Confirmar Reserva</button>
             
             <div className="info-box">
-              <p><strong>Nota:</strong> Las reservas están sujetas a disponibilidad. Nos pondremos en contacto contigo para confirmar tu reserva dentro de las próximas 24 horas.</p>
+              <p><span>Nota:</span> Las reservas están sujetas a disponibilidad. Nos pondremos en contacto contigo para confirmar tu reserva dentro de las próximas 24 horas.</p>
             </div>
           </form>
         </div>
       </section>
 
+      {/* Información Importante al final */}
       <section className="info-extra">
         <h2 className="info-title">Información Importante</h2>
         <div className="info-grid">

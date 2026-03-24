@@ -9,7 +9,7 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav-container">
         <div className="nav-brand">
-          <img src="tu-logo-real.png" alt="Porter Logo" className="logo-img" />
+          <img src="/public/imagenes/logo-porter.png" alt="Porter Logo" className="logo-img" />
           <h1 className="brand-name">Porter Brew House</h1>
         </div>
 
@@ -22,10 +22,10 @@ const Navbar = () => {
         <div className={`nav-content ${isOpen ? 'is-active' : ''}`}>
           <ul className="nav-links">
             <li><a href="#" className="active">Inicio</a></li>
-            <li><a href="#">Quiénes Somos</a></li>
-            <li><a href="#">Galería</a></li>
+            <Link to="/aboutus">Quienes Somos</Link>
+            <Link to="/galeria">Galeria</Link>
             <Link to="/reservas">Reservas</Link>
-            <li><a href="#">Contacto</a></li>
+            <Link to="/contacto">Contacto</Link>
           </ul>
 
           <div className="nav-actions">

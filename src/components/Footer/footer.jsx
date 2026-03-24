@@ -6,8 +6,12 @@ const Footer = () => {
         <footer className="footer-wrapper">
             <div className="footer-container">
                 <div className="porter-info">
-                    <div className="logo-brand">
-                        <img src="/logo-porter.png" alt="Porter Logo" />
+                    <div className="logo-container">
+                        <img 
+                            src="/imagenes/logo-porter.png" 
+                            alt="Porter Logo" 
+                            className="logo-brand-img" 
+                        />
                         <h3>Porter</h3>
                     </div>
                     <span>Una experiencia gastronómica única en el corazón de Tucumán.</span>
@@ -49,5 +53,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-
