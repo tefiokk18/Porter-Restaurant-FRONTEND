@@ -11,19 +11,19 @@ const Galeria = () => {
             { id: 3, src: '/imagenes/chef3.avif', alt: 'Chef Pastelero Carlos Fernández' },
         ],
         'Comida': [
-            { id: 4, src: '/imagenes/platoprincipal.jpg', alt: 'Plato Principal' },
-            { id: 5, src: '/imagenes/entrada.jpg', alt: 'Entrada Especial' },
-            { id: 6, src: '/imagenes/postre.jpg', alt: 'Postre de la Casa' },
+            { id: 4, src: '/imagenes/comida8.jpg', alt: 'Plato Principal' },
+            { id: 5, src: '/imagenes/comida5.jpg', alt: 'Entrada Especial' },
+            { id: 6, src: '/imagenes/comida6.jpg', alt: 'Postre de la Casa' },
         ],
         'Lugar': [
-            { id: 7, src: '/imagenes/restaurante1.jpg', alt: 'Nuestro Salón Principal' },
-            { id: 8, src: '/imagenes/restaurante2.jpg', alt: 'La Barra' },
+            { id: 7, src: '/imagenes/home.png', alt: 'Nuestro Salón Principal' },
+            { id: 8, src: '/imagenes/lugar.jpg', alt: 'La Barra' },
             { id: 9, src: '/imagenes/terraza.jpg', alt: 'Terraza' }, 
         ],
         'Bebidas': [
             { id: 10, src: '/imagenes/tragos.jpg', alt: 'Cóctel de Autor' },
-            { id: 11, src: '/imagenes/vinos.jpg', alt: 'Selección de Vinos' }, 
-            { id: 12, src: '/imagenes/cerveza.jpg', alt: 'Cerveza Tirada' }, 
+            { id: 11, src: '/imagenes/cerveza.jpg', alt: 'Selección de Vinos' }, 
+            { id: 12, src: '/imagenes/tragos2.jpg', alt: 'Cerveza Tirada' }, 
         ],
     };
 

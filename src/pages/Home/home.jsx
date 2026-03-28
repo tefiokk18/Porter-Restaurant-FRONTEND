@@ -99,8 +99,8 @@ const About = () => {
 
 const Gallery = () => {
   const images = [
-    "/public/imagenes/comida1.png",
-    "/public/imagenes/comida2.png",
+    "/public/imagenes/comida1.png", 
+    "/public/imagenes/comida2.png", 
     "/public/imagenes/comida3.png"
   ];
 
