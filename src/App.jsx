@@ -4,9 +4,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css'; 
 
 
+import { AuthProvider } from '../src/context/authcontext';
+import ProtectedRoute from './components/Protectroute/route'
+import AdminPanel from './pages/Admin/admin'; 
+// ------------------------------------------
+
 import Navbar from './components/Navbar/navbar';
 import Footer from './components/Footer/footer';
-
 
 import Registro from './components/Registro/registro';
 import Login from './components/Login/login';
@@ -18,39 +22,44 @@ import AboutUs from './pages/AboutUs/aboutus';
 
 function App() {
   return (
-    <Router>
-      <Navbar />
+    /* 1. Envolvemos con el Proveedor de Autenticación */
+    <AuthProvider>
+      <Router>
+        <Navbar />
 
-      <main className="flex-grow-1">
-        <Routes>
+        <main className="flex-grow-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/reservas" element={<Reservas />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registro" element={<Registro />} />
+            <Route path="/galeria" element={<Galeria />} />
+            <Route path="/contacto" element={<Contacto />} />
 
-          <Route path="/" element={
-            <>
-              <Home />
-              
-            </>
-          } />
+            {/* 2. RUTA PROTEGIDA: Solo accesible para admins */}
+            <Route 
+              path="/admin" 
+              element={
+                <ProtectedRoute>
+                  <AdminPanel />
+                </ProtectedRoute>
+              } 
+            />
 
+            <Route path="*" element={
+              <div className="container text-center py-5">
+                <h2 className="display-4 fw-bold mt-5">404</h2>
+                <p className="lead">Lo sentimos, la página que buscas no existe.</p>
+              </div>
+            } />
+          </Routes>
+        </main>
 
-          <Route path="/quienes-somos" element={<AboutUs />} />
-          <Route path="/reservas" element={<Reservas />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/registro" element={<Registro />} />
-          <Route path="/galeria" element={<Galeria />} />
-          <Route path="/contacto" element={<Contacto />} />
-
-
-          <Route path="*" element={
-            <div className="container text-center py-5">
-              <h2 className="display-4 fw-bold mt-5">404</h2>
-              <p className="lead">Lo sentimos, la página que buscas no existe.</p>
-            </div>
-          } />
-        </Routes>
-      </main>
-
-      <Footer />
-    </Router>
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 }
 

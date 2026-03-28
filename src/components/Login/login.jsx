@@ -1,15 +1,27 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate } from 'react-router-dom'; // Importamos useNavigate
+import { useAuth } from '../../context/authcontext'; // Importamos tu contexto
 import './login.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
+    const { login } = useAuth(); // Extraemos la función login del contexto
+    const navigate = useNavigate(); // Hook para redireccionar
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Iniciando sesión con:", email, password);
 
+        login(email);
+
+        if (email.includes('admin') || email.endsWith('@porter.com')) {
+            console.log("Acceso concedido: Redirigiendo a Panel de Admin...");
+            navigate('/admin');
+        } else {
+            console.log("Acceso concedido: Redirigiendo a Home...");
+            navigate('/home');
+        }
     };
 
     return (
@@ -20,7 +32,6 @@ const Login = () => {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-
                     <div className="mb-4 text-start">
                         <label className="form-label fw-bold small">Correo Electrónico</label>
                         <input
@@ -32,7 +43,6 @@ const Login = () => {
                             required
                         />
                     </div>
-
 
                     <div className="mb-4 text-start">
                         <label className="form-label fw-bold small">Contraseña</label>
@@ -46,11 +56,9 @@ const Login = () => {
                         />
                     </div>
 
-
                     <button type="submit" className="btn btn-porter-login w-100 py-3 fw-bold mb-3">
                         Ingresar
                     </button>
-
 
                     <div className="text-center mt-4">
                         <p className="mb-0 text-muted small">

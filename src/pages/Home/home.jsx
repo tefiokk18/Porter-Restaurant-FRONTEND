@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import './home.css';
 
@@ -9,12 +10,13 @@ const Hero = () => {
         <h1>Bienvenidos a Porter</h1>
         <p>Una experiencia gastronómica única en Tucumán</p>
         <div className="hero-buttons">
-          <button className="btn-primary">
+          <Link to="/reservas" className="btn btn-primary">
             <span className="bi bi-calendar-event"></span> Hacer una Reserva
-          </button>
-          <button className="btn-secondary">
+          </Link>
+
+          <Link to="/aboutus" className="btn btn-secondary">
             Conocer Más
-          </button>
+          </Link>
         </div>
       </div>
     </section>
@@ -42,7 +44,7 @@ const featuresData = [
 const FeatureCard = ({ icon, title, description }) => (
   <div className="feature-card">
     <div className="icon-container">
-      <i className={`bi bi-${icon}`}></i> 
+      <i className={`bi bi-${icon}`}></i>
     </div>
     <h3>{title}</h3>
     <p>{description}</p>
@@ -54,8 +56,8 @@ const Features = () => {
     <section className="features-section">
       <div className="features-container">
         {featuresData.map((feature, index) => (
-          <FeatureCard 
-            key={index} 
+          <FeatureCard
+            key={index}
             icon={feature.icon}
             title={feature.title}
             description={feature.description}
@@ -71,22 +73,24 @@ const About = () => {
     <section className="about-section">
       <div className="about-container">
         <div className="about-image">
-          <img 
-            src="/public/imagenes/historia.png" 
-            alt="Nuestra Historia Chef" 
+          <img
+            src="/public/imagenes/historia.png"
+            alt="Nuestra Historia Chef"
           />
         </div>
         <div className="about-text">
           <h2>Nuestra Historia</h2>
           <p>
-            Porter Restaurant nace con la visión de crear un espacio donde la excelencia culinaria 
+            Porter Restaurant nace con la visión de crear un espacio donde la excelencia culinaria
             se encuentre con la calidez de la hospitalidad tucumana.
           </p>
           <p>
-            Cada plato cuenta una historia, cada ingrediente es cuidadosamente seleccionado 
+            Cada plato cuenta una historia, cada ingrediente es cuidadosamente seleccionado
             para ofrecerte una experiencia gastronómica inolvidable.
           </p>
-          <button className="btn-about">Conoce más sobre nosotros</button>
+          <Link to="/aboutus">
+            <button className="btn-about">Conoce más sobre nosotros</button>
+          </Link>
         </div>
       </div>
     </section>
@@ -95,8 +99,8 @@ const About = () => {
 
 const Gallery = () => {
   const images = [
-    "/public/imagenes/comida1.png", 
-    "/public/imagenes/comida2.png", 
+    "/public/imagenes/comida1.png",
+    "/public/imagenes/comida2.png",
     "/public/imagenes/comida3.png"
   ];
 
@@ -106,7 +110,7 @@ const Gallery = () => {
         <h2>Galería</h2>
         <p>Un vistazo a nuestro restaurante y los platos que preparamos con amor</p>
       </div>
-      
+
       <div className="gallery-grid">
         {images.map((img, index) => (
           <div key={index} className="gallery-item">
@@ -115,7 +119,9 @@ const Gallery = () => {
         ))}
       </div>
 
-      <button className="btn-gallery">Ver Galería Completa</button>
+      <Link to="/galeria">
+        <button className="btn-gallery">Ver Galería Completa</button>
+      </Link>
     </section>
   );
 };
@@ -139,7 +145,7 @@ const Home = () => {
       <Features />
       <About />
       <Gallery />
-      
+
     </main>
   );
 };

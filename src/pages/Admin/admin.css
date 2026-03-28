@@ -1,0 +1,147 @@
+/* Estenedor principal */
+.admin-panel-container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.admin-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #1a1a1a;
+}
+
+/* Pestañas (Tabs) */
+.admin-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 25px;
+}
+
+.tab-item {
+    padding: 12px 24px;
+    border: none;
+    background: none;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tab-item:hover {
+    color: #00a884;
+}
+
+.tab-item.active {
+    color: #00a884;
+    border-bottom: 3px solid #00a884;
+}
+
+/* Tabla */
+.admin-table-content {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding: 20px;
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.admin-table th {
+    text-align: left;
+    padding: 15px;
+    font-size: 0.8rem;
+    color: #adb5bd;
+    text-transform: uppercase;
+    border-bottom: 1px solid #f8f9fa;
+}
+
+.admin-table td {
+    padding: 18px 15px;
+    border-bottom: 1px solid #f8f9fa;
+    vertical-align: middle;
+}
+
+/* Celdas especiales */
+.client-name {
+    display: block;
+    font-weight: 600;
+    color: #343a40;
+}
+
+.client-email {
+    display: block;
+    font-size: 0.85rem;
+    color: #adb5bd;
+}
+
+/* Badges de Estado */
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-confirmed {
+    background-color: #d1f7ec;
+    color: #00a884;
+}
+
+.status-pending {
+    background-color: #fff4e5;
+    color: #ff9800;
+}
+
+/* Badges de Roles */
+.role-badge {
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.role-admin {
+    background-color: #f3e5f5;
+    color: #9c27b0;
+}
+
+.role-user {
+    background-color: #e3f2fd;
+    color: #2196f3;
+}
+
+/* Botones de Acción */
+.btn-action {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-action:hover {
+    transform: scale(1.2);
+}
+
+.btn-edit { color: #00a884; }
+.btn-delete { color: #dc3545; }
+.admin-panel-container {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Añade esta línea: */
+    min-height: 70vh; 
+    margin-bottom: 50px; 
+}

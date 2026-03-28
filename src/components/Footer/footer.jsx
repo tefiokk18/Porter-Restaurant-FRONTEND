@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import './footer.css';
 
@@ -7,10 +8,10 @@ const Footer = () => {
             <div className="footer-container">
                 <div className="porter-info">
                     <div className="logo-container">
-                        <img 
-                            src="/imagenes/logo-porter.png" 
-                            alt="Porter Logo" 
-                            className="logo-brand-img" 
+                        <img
+                            src="/imagenes/logo-porter.png"
+                            alt="Porter Logo"
+                            className="logo-brand-img"
                         />
                         <h3>Porter</h3>
                     </div>
@@ -20,9 +21,23 @@ const Footer = () => {
                 <div className="footer-column">
                     <h4>Enlaces Rápidos</h4>
                     <ul>
-                        <li>Quiénes Somos</li>
-                        <li>Galería</li>
-                        <li>Reservas</li>
+                        <ul className="footer-links">
+                            <li>
+                                <Link to="/aboutus" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    Quiénes Somos
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/galeria" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    Galería
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/reservas" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    Reservas
+                                </Link>
+                            </li>
+                        </ul>
                     </ul>
                 </div>
 
@@ -44,7 +59,7 @@ const Footer = () => {
                     </ul>
                 </div>
             </div>
-            
+
             <div className="footer-bottom">
                 <p>© 2026 Porter Restaurant. Todos los derechos reservados.</p>
             </div>
