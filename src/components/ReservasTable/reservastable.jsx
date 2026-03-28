@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 const ReservasTable = () => {
-  // Estado vacío para que no haya nada al inicio
   const [reservas, setReservas] = useState([]);
 
   return (
