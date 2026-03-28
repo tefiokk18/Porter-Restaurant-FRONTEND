@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ReservasTable = () => {
-  const reservas = [
-    { id: 1, cliente: 'Juan Pérez', email: 'juan@email.com', fecha: '19/3/2026', hora: '20:00', comensales: 4, estado: 'Confirmada' },
-    { id: 2, cliente: 'Juan Pérez', email: 'juan@email.com', fecha: '24/3/2026', hora: '21:00', comensales: 2, estado: 'Pendiente' },
-  ];
+  // Estado vacío para que no haya nada al inicio
+  const [reservas, setReservas] = useState([]);
 
   return (
     <div className="table-wrapper">
@@ -21,28 +19,35 @@ const ReservasTable = () => {
           </tr>
         </thead>
         <tbody>
-          {reservas.map((reserva) => (
-            <tr key={reserva.id}>
-              <td>{reserva.id}</td>
-              <td className="client-cell">
-                <span className="client-name">{reserva.cliente}</span>
-                <span className="client-email">{reserva.email}</span>
-              </td>
-              <td>{reserva.fecha}</td>
-              <td>{reserva.hora}</td>
-              <td>{reserva.comensales}</td>
-              <td>
- 
-                <span className={`status-badge ${reserva.estado === 'Confirmada' ? 'status-confirmed' : 'status-pending'}`}>
-                  {reserva.estado}
-                </span>
-              </td>
-              <td className="actions-cell">
-                <button className="btn-action btn-edit">✏️</button>
-                <button className="btn-action btn-delete">🗑️</button>
+          {reservas.length === 0 ? (
+            <tr>
+              <td colSpan="7" style={{ textAlign: 'center', padding: '40px', color: '#999' }}>
+                No hay reservas registradas.
               </td>
             </tr>
-          ))}
+          ) : (
+            reservas.map((reserva) => (
+              <tr key={reserva.id}>
+                <td>{reserva.id}</td>
+                <td className="client-cell">
+                  <span className="client-name">{reserva.cliente}</span>
+                  <span className="client-email">{reserva.email}</span>
+                </td>
+                <td>{reserva.fecha}</td>
+                <td>{reserva.hora}</td>
+                <td>{reserva.comensales}</td>
+                <td>
+                  <span className={`status-badge ${reserva.estado === 'Confirmada' ? 'status-confirmed' : 'status-pending'}`}>
+                    {reserva.estado}
+                  </span>
+                </td>
+                <td className="actions-cell">
+                  <button className="btn-action btn-edit">✏️</button>
+                  <button className="btn-action btn-delete">🗑️</button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>
