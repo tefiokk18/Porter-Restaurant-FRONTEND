@@ -1,10 +1,12 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const AuthContext = createContext(null);
+// 1. Create the Context object
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [ingresos, setIngresos] = useState([]); 
+  const [reservasGlobales, setReservasGlobales] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const login = (email) => {
@@ -15,10 +17,12 @@ export const AuthProvider = ({ children }) => {
       email: email, 
       role: isAdmin ? 'admin' : 'user' 
     };
-
     setUser(newUserData);
-    
     setIngresos(prev => [...prev, newUserData]);
+  };
+
+  const agregarReserva = (nuevaReserva) => {
+    setReservasGlobales(prev => [...prev, { ...nuevaReserva, id: Date.now() }]);
   };
 
   const logout = () => setUser(null);
@@ -28,10 +32,17 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, ingresos }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, ingresos, reservasGlobales, agregarReserva }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
+// 2. THIS IS THE MISSING PIECE: Export the custom hook
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+  return context;
+};

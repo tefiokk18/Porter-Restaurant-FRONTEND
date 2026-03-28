@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './reservas.css';
 
 const Reservas = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    setShowModal(true);
+  
+    e.target.reset();
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    
+  };
+
   return (
     <div className="reservas-page">
-      {/* Hero con fondo de imagen y overlay oscuro */}
       <section className="reservas-hero">
         <div className="hero-content">
           <h1>Reservas</h1>
@@ -12,13 +26,12 @@ const Reservas = () => {
         </div>
       </section>
 
-      {/* Sección del Formulario que se solapa con el hero */}
       <section className="form-section">
         <div className="form-card">
           <h2>Reserva tu Mesa</h2>
           <p className="form-subtitle">Completa el formulario y nos pondremos en contacto contigo para confirmar</p>
           
-          <form className="booking-form">
+          <form className="booking-form" onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
                 <label>📅 Fecha *</label>
@@ -28,12 +41,12 @@ const Reservas = () => {
                 <label>🕒 Horario *</label>
                 <select required>
                   <option value="">Seleccionar</option>
-                  <option value="20:00">19:00</option>
-                  <option value="21:00">20:00</option>
-                  <option value="22:00">21:00</option>
-                  <option value="20:00">22:00</option>
-                  <option value="21:00">23:00</option>
-                  <option value="22:00">00:00</option>
+                  <option value="19:00">19:00</option>
+                  <option value="20:00">20:00</option>
+                  <option value="21:00">21:00</option>
+                  <option value="22:00">22:00</option>
+                  <option value="23:00">23:00</option>
+                  <option value="00:00">00:00</option>
                 </select>
               </div>
               <div className="form-group">
@@ -42,6 +55,7 @@ const Reservas = () => {
                   <option value="2">2 personas</option>
                   <option value="4">4 personas</option>
                   <option value="6">6 personas</option>
+                  <option value="8">8 personas</option>
                 </select>
               </div>
             </div>
@@ -88,17 +102,30 @@ const Reservas = () => {
         </div>
       </section>
 
-      {/* Información Importante al final */}
+      
+      {showModal && (
+        <div className="modal-overlay-reserva">
+          <div className="modal-content-reserva shadow-lg text-center">
+            <div className="modal-icon-success">✔️</div>
+            <h3 className="fw-bold mb-3">Reserva Registrada</h3>
+            <p className="text-muted">Tu solicitud ha sido enviada con éxito. Te contactaremos pronto.</p>
+            <button className="btn-close-modal-reserva" onClick={closeModal}>
+              Aceptar
+            </button>
+          </div>
+        </div>
+      )}
+
       <section className="info-extra">
         <h2 className="info-title">Información Importante</h2>
         <div className="info-grid">
           <div className="info-card">
             <h3>Política de Cancelación</h3>
-            <p>Solicitamos cancelar con al menos 24 horas de anticipación. Las cancelaciones tardías pueden estar sujetas a un cargo.</p>
+            <p>Solicitamos cancelar con al menos 24 horas de anticipación.</p>
           </div>
           <div className="info-card">
             <h3>Grupos Grandes</h3>
-            <p>Para reservas de más de 12 personas, por favor contáctanos directamente al +54 381 XXX-XXXX.</p>
+            <p>Para reservas de más de 12 personas, contáctanos al +54 381 XXX-XXXX.</p>
           </div>
         </div>
       </section>
