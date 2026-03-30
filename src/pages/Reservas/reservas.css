@@ -1,12 +1,13 @@
 .reservas-page {
   background-color: #fcfcfc;
   min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .reservas-hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-              url('/public/imagenes/home.png') no-repeat center center/cover; 
-  height: 300px; 
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url('/public/imagenes/home.png') no-repeat center center/cover;
+  height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +27,7 @@
 }
 
 .form-section {
-  margin-top: 40px; 
+  margin-top: 40px;
   padding: 0 20px 60px;
 }
 
@@ -36,7 +37,7 @@
   background: white;
   padding: 50px;
   border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .form-card h2 {
@@ -73,11 +74,9 @@
   font-size: 0.85rem;
 }
 
-.label-sucursal {
-  color: #c94c4c; 
-}
-
-input, select, textarea {
+input,
+select,
+textarea {
   padding: 12px 15px;
   border: 1px solid #e0e0e0;
   border-radius: 6px;
@@ -86,31 +85,17 @@ input, select, textarea {
   transition: border 0.3s;
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   border-color: #007a6a;
   outline: none;
   background-color: #fff;
 }
 
-
-.radio-group {
-  display: flex;
-  gap: 25px;
-  margin-top: 5px;
-}
-
-.radio-label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  color: #555;
-}
-
 .btn-confirm {
   width: 100%;
-  background: #00695c; 
+  background: #00695c;
   color: white;
   padding: 16px;
   border: none;
@@ -126,133 +111,167 @@ input:focus, select:focus, textarea:focus {
   background: #004d40;
 }
 
-.info-box {
-  background: #f0faff;
-  padding: 15px 20px;
-  border-radius: 6px;
-  margin-top: 25px;
-  border-left: 4px solid #00a896;
-}
 
-.info-box p {
-  font-size: 0.85rem;
-  color: #445;
-  margin: 0;
-  line-height: 1.5;
-}
-
-.info-box span {
-  font-weight: 700;
-  color: #007a6a;
-}
-
-.info-extra {
-  padding: 40px 20px 100px;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.info-title {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #0d1b2a;
-  margin-bottom: 40px;
-}
-
-.info-grid {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-}
-
-.info-card {
+.table-wrapper {
+  margin: 40px auto;
+  max-width: 1100px;
   background: white;
   padding: 25px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  flex: 1;
-  border: 1px solid #f0f0f0;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 }
 
-.info-card h3 {
-  font-size: 1rem;
-  color: #0d1b2a;
-  margin-bottom: 12px;
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
 }
 
-.info-card p {
-  font-size: 0.88rem;
-  color: #666;
-  line-height: 1.6;
+.admin-table th {
+  background-color: #0d1b2a;
+  color: white;
+  padding: 15px;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.admin-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #444;
 }
 
 
-@media (max-width: 850px) {
-  .form-row { grid-template-columns: 1fr; }
-  .info-grid { flex-direction: column; }
-  .form-card { padding: 30px 20px; }
-  .reservas-hero { height: 250px; }
-  .form-section { margin-top: 20px; } 
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  display: inline-block;
 }
 
-.modal-overlay-reserva {
+.status-badge.pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status-badge.confirmada {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-badge.cancelada {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+
+.btn-edit,
+.btn-delete {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+  margin: 0 8px;
+}
+
+.btn-edit:hover {
+  transform: scale(1.25);
+  filter: brightness(1.2);
+}
+
+.btn-delete:hover {
+  transform: scale(1.25);
+  filter: saturate(2);
+}
+
+
+.modal-custom {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); 
+  background: rgba(0, 0, 0, 0.65);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2000;
-  backdrop-filter: blur(4px); 
+  z-index: 3000;
+  backdrop-filter: blur(6px);
 }
 
-.modal-content-reserva {
+.modal-content {
   background: white;
   padding: 40px;
   border-radius: 20px;
-  max-width: 400px;
   width: 90%;
-  animation: fadeInDown 0.3s ease-out;
+  max-width: 450px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  animation: modalPop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.modal-icon-success {
-  font-size: 50px;
-  background: #d4edda;
-  color: #28a745;
-  width: 80px;
-  height: 80px;
-  line-height: 80px;
-  border-radius: 50%;
-  margin: 0 auto 20px;
+@keyframes modalPop {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
-.btn-close-modal-reserva {
-  background-color: var(--primary-teal, #007a6a);
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.btn-save {
+  flex: 1;
+  background-color: #007a6a;
   color: white;
   border: none;
-  padding: 12px 30px;
+  padding: 14px;
   border-radius: 10px;
-  font-weight: 600;
-  margin-top: 20px;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.btn-close-modal-reserva:hover {
+.btn-cancel {
+  flex: 1;
+  background-color: #f0f0f0;
+  color: #555;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-save:hover {
   background-color: #006356;
-  transform: scale(1.05);
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
+.btn-cancel:hover {
+  background-color: #e0e0e0;
+}
+
+@media (max-width: 850px) {
+  .form-row {
+    grid-template-columns: 1fr;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .form-card {
+    padding: 30px 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5rem;
   }
 }
