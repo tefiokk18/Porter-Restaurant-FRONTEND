@@ -1,26 +1,54 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Importamos useNavigate
-import { useAuth } from '../../context/authcontext'; // Importamos tu contexto
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/authcontext';
 import './login.css';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
-    const { login } = useAuth(); // Extraemos la función login del contexto
-    const navigate = useNavigate(); // Hook para redireccionar
+    const [error, setError] = useState(null); 
 
-    const handleSubmit = (e) => {
+    const { login } = useAuth();
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setError(null);
 
-        login(email);
+        try {
+            const respuesta = await fetch('http://localhost:4000/api/usuarios/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
 
-        if (email.includes('admin') || email.endsWith('@porter.com')) {
-            console.log("Acceso concedido: Redirigiendo a Panel de Admin...");
-            navigate('/admin');
-        } else {
-            console.log("Acceso concedido: Redirigiendo a Home...");
-            navigate('/home');
+            const data = await respuesta.json();
+
+            if (respuesta.ok) {
+                localStorage.setItem('token', data.token);
+                localStorage.setItem('usuario', JSON.stringify({ nombre: data.nombre, rol: data.rol }));
+                localStorage.setItem('rol', data.rol);
+
+
+                login(data.nombre);
+
+                console.log("Login exitoso. Rol:", data.rol);
+
+
+                if (data.rol === 'admin') {
+                    navigate('/admin');
+                } else {
+                    navigate('/home');
+                }
+            } else {
+
+                setError(data.mensaje || "Credenciales incorrectas");
+            }
+        } catch (err) {
+            console.error("Error en la conexión:", err);
+            setError("No se pudo conectar con el servidor. Revisá que el backend esté corriendo.");
         }
     };
 
@@ -30,6 +58,13 @@ const Login = () => {
                 <div className="text-center mb-4">
                     <h2 className="fw-bold display-6">Iniciar Sesión</h2>
                 </div>
+
+
+                {error && (
+                    <div className="alert alert-danger text-center py-2 small" role="alert">
+                        {error}
+                    </div>
+                )}
 
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4 text-start">

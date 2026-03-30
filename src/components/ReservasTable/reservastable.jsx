@@ -4,55 +4,89 @@ import Swal from 'sweetalert2';
 
 const ReservasTable = () => {
   const [reservas, setReservas] = useState([]);
-  const [reservaEditada, setReservaEditada] = useState(null); 
-  const [mostrarModal, setMostrarModal] = useState(false);   
+  const [reservaEditada, setReservaEditada] = useState(null);
+  const [mostrarModal, setMostrarModal] = useState(false);
+
 
   const URL = 'http://localhost:4000/api/reservas';
 
-  useEffect(() => {
-    const obtenerReservas = async () => {
-      try {
-        const respuesta = await axios.get(URL);
-        setReservas(respuesta.data);
-      } catch (error) {
-        console.error("Error al traer las reservas", error);
+
+  const obtenerConfig = () => {
+    const token = localStorage.getItem('token');
+    return {
+      headers: {
+        'x-token': token 
       }
     };
+  };
+
+
+  const obtenerReservas = async () => {
+    try {
+      const config = obtenerConfig();
+
+
+      if (!config.headers['x-token']) {
+        console.warn("No se encontró token de acceso.");
+        return;
+      }
+
+      const respuesta = await axios.get(URL, config);
+      setReservas(respuesta.data);
+    } catch (error) {
+      console.error("Error al traer las reservas", error);
+
+
+      if (error.response?.status === 401) {
+        Swal.fire({
+          title: "Sesión expirada",
+          text: "Por favor, vuelve a iniciar sesión para continuar.",
+          icon: "error",
+          confirmButtonText: "Ir al Login"
+        }).then(() => {
+          localStorage.clear();
+          window.location.href = '/login';
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
     obtenerReservas();
   }, []);
 
   const eliminarReserva = async (id) => {
-    Swal.fire({
+    const result = await Swal.fire({
       title: "¿Estás seguro?",
-      text: "Esta acción no se puede deshacer",
+      text: "Esta acción eliminará la reserva permanentemente",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar"
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        try {
-          await axios.delete(`${URL}/${id}`);
-          setReservas(reservas.filter(res => res._id !== id));
-
-          Swal.fire("¡Eliminado!", "La reserva ha sido borrada con éxito.", "success");
-        } catch (error) {
-          console.error("No se pudo eliminar", error);
-          Swal.fire("Error", "No se pudo eliminar la reserva del servidor.", "error");
-        }
-      }
     });
+
+    if (result.isConfirmed) {
+      try {
+        const config = obtenerConfig();
+        await axios.delete(`${URL}/${id}`, config);
+        setReservas(reservas.filter(res => res._id !== id));
+        Swal.fire("¡Eliminado!", "La reserva ha sido borrada.", "success");
+      } catch (error) {
+        console.error("No se pudo eliminar", error);
+        Swal.fire("Error", "No tienes permisos o el servidor falló.", "error");
+      }
+    }
   };
 
   const guardarCambios = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${URL}/${reservaEditada._id}`, reservaEditada);
+      const config = obtenerConfig();
+      await axios.put(`${URL}/${reservaEditada._id}`, reservaEditada, config);
 
       setReservas(reservas.map(res => res._id === reservaEditada._id ? reservaEditada : res));
-
       setMostrarModal(false);
       Swal.fire("¡Actualizado!", "Los datos se guardaron correctamente", "success");
     } catch (error) {
@@ -87,11 +121,11 @@ const ReservasTable = () => {
               <tr key={reserva._id}>
                 <td>{reserva._id.substring(reserva._id.length - 5)}</td>
                 <td className="client-cell">
-                  <span className="client-name">{reserva.cliente}</span>
+                  <span className="client-name">{reserva.nombre || reserva.cliente}</span>
                   <span className="client-email">{reserva.email}</span>
                 </td>
                 <td>{reserva.fecha}</td>
-                <td>{reserva.hora}</td>
+                <td>{reserva.horario || reserva.hora}</td>
                 <td>{reserva.comensales}</td>
                 <td>
                   <span className={`status-badge ${reserva.estado ? reserva.estado.toLowerCase() : ''}`}>
@@ -130,8 +164,8 @@ const ReservasTable = () => {
                 <label>Nombre del Cliente:</label>
                 <input
                   type="text"
-                  value={reservaEditada.cliente}
-                  onChange={(e) => setReservaEditada({ ...reservaEditada, cliente: e.target.value })}
+                  value={reservaEditada.nombre || reservaEditada.cliente || ''}
+                  onChange={(e) => setReservaEditada({ ...reservaEditada, nombre: e.target.value })}
                   required
                 />
               </div>
