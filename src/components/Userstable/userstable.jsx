@@ -25,10 +25,8 @@ const UsuariosTable = () => {
             </tr>
           ) : (
             ingresos.map((u, index) => {
-              // Obtenemos un ID para mostrar, priorizando _id o usando el index
               const displayId = u._id || u.id || `USR-${index}`;
-              
-              // Verificamos el rol (aceptamos rol o role por si el backend varía)
+   
               const userRole = u.rol || u.role;
               const isAdmin = userRole === 'admin';
 

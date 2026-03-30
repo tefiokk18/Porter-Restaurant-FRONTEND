@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Galeria.css';
+import './galeria.css';
 
 const Galeria = () => {
     const [filtro, setFiltro] = useState('Todas');

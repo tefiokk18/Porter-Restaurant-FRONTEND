@@ -166,7 +166,6 @@
   transform: translateY(-1px);
 }
 
-/* --- RESPONSIVE --- */
 
 @media (max-width: 992px) {
   .user-logged-actions {
