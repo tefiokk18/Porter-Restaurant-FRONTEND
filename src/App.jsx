@@ -22,7 +22,7 @@ import AboutUs from './pages/AboutUs/aboutus';
 
 function App() {
   return (
-    /* 1. Envolvemos con el Proveedor de Autenticación */
+
     <AuthProvider>
       <Router>
         <Navbar />
@@ -38,7 +38,7 @@ function App() {
             <Route path="/galeria" element={<Galeria />} />
             <Route path="/contacto" element={<Contacto />} />
 
-            {/* 2. RUTA PROTEGIDA: Solo accesible para admins */}
+            
             <Route 
               path="/admin" 
               element={

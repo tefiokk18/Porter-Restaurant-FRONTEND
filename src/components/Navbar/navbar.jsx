@@ -56,7 +56,6 @@ const Navbar = () => {
                     <span className="admin-text-simple">Panel Admin</span>
                   </Link>
                 )}
-
                 <span className="user-welcome">Hola, <strong>{nombreAMostrar}</strong></span>
 
                 <button onClick={handleLogout} className="btn-logout">
