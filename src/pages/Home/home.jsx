@@ -74,7 +74,7 @@ const About = () => {
       <div className="about-container">
         <div className="about-image">
           <img
-            src="./public/imagenes/historia.png"
+            src="./historia.png"
             alt="Nuestra Historia Chef"
           />
         </div>
@@ -99,9 +99,9 @@ const About = () => {
 
 const Gallery = () => {
   const images = [
-    "./public/imagenes/comida1.jpg", 
-    "./public/imagenes/comida2.png", 
-    "./public/imagenes/comida3.png"
+    "./comida1.jpg", 
+    "./comida2.png", 
+    "./comida3.png"
   ];
 
   return (
