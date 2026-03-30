@@ -16,7 +16,8 @@ const Login = () => {
         setError(null);
 
         try {
-            const respuesta = await fetch('http://localhost:4000/api/usuarios/login', {
+          
+            const respuesta = await fetch('http://localhost:4000/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -28,14 +29,13 @@ const Login = () => {
 
             if (respuesta.ok) {
                 localStorage.setItem('token', data.token);
-                localStorage.setItem('usuario', JSON.stringify({ nombre: data.nombre, rol: data.rol }));
-                localStorage.setItem('rol', data.rol);
+                login({ 
+                    nombre: data.nombre, 
+                    rol: data.rol, 
+                    email: email 
+                });
 
-
-                login(data.nombre);
-
-                console.log("Login exitoso. Rol:", data.rol);
-
+                console.log("Login exitoso. Rol detectado:", data.rol);
 
                 if (data.rol === 'admin') {
                     navigate('/admin');
@@ -43,7 +43,6 @@ const Login = () => {
                     navigate('/home');
                 }
             } else {
-
                 setError(data.mensaje || "Credenciales incorrectas");
             }
         } catch (err) {
@@ -58,7 +57,6 @@ const Login = () => {
                 <div className="text-center mb-4">
                     <h2 className="fw-bold display-6">Iniciar Sesión</h2>
                 </div>
-
 
                 {error && (
                     <div className="alert alert-danger text-center py-2 small" role="alert">

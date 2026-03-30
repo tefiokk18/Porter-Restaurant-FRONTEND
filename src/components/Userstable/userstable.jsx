@@ -13,24 +13,50 @@ const UsuariosTable = () => {
             <th>NOMBRE</th>
             <th>EMAIL</th>
             <th>ROL</th>
+            <th>ESTADO</th>
           </tr>
         </thead>
         <tbody>
           {ingresos.length === 0 ? (
-            <tr><td colSpan="4" style={{textAlign: 'center', padding: '20px'}}>No hay usuarios logueados aún.</td></tr>
+            <tr>
+              <td colSpan="5" style={{ textAlign: 'center', padding: '20px' }}>
+                No hay sesiones de usuarios activas.
+              </td>
+            </tr>
           ) : (
-            ingresos.map((u) => (
-              <tr key={u.id}>
-                <td>{u.id.toString().slice(-4)}</td>
-                <td className="user-name-cell">{u.nombre}</td>
-                <td className="user-email-cell">{u.email}</td>
-                <td>
-                  <span className={`role-badge ${u.role === 'admin' ? 'role-admin' : 'role-user'}`}>
-                    {u.role === 'admin' ? 'Administrador' : 'Usuario'}
-                  </span>
-                </td>
-              </tr>
-            ))
+            ingresos.map((u, index) => {
+              // Obtenemos un ID para mostrar, priorizando _id o usando el index
+              const displayId = u._id || u.id || `USR-${index}`;
+              
+              // Verificamos el rol (aceptamos rol o role por si el backend varía)
+              const userRole = u.rol || u.role;
+              const isAdmin = userRole === 'admin';
+
+              return (
+                <tr key={displayId}>
+                  <td className="id-cell">
+                    #{displayId.toString().slice(-4).toUpperCase()}
+                  </td>
+                  <td className="user-name-cell">
+                    <div className="d-flex align-items-center">
+                      <div className={`avatar-circle ${isAdmin ? 'bg-admin' : 'bg-user'}`}>
+                        {u.nombre?.charAt(0).toUpperCase()}
+                      </div>
+                      <span className="ms-2">{u.nombre}</span>
+                    </div>
+                  </td>
+                  <td className="user-email-cell">{u.email}</td>
+                  <td>
+                    <span className={`role-badge ${isAdmin ? 'role-admin' : 'role-user'}`}>
+                      {isAdmin ? '🛡️ Administrador' : '👤 Cliente'}
+                    </span>
+                  </td>
+                  <td>
+                    <span className="status-online">● En línea</span>
+                  </td>
+                </tr>
+              );
+            })
           )}
         </tbody>
       </table>

@@ -1,44 +1,54 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// 1. Create the Context object
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [ingresos, setIngresos] = useState([]); 
-  const [reservasGlobales, setReservasGlobales] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  const [ingresos, setIngresos] = useState([]);
 
-  const login = (email) => {
-    const isAdmin = email.endsWith('@porter.com') || email.includes('admin');
-    const newUserData = { 
-      id: Date.now(), 
-      nombre: email.split('@')[0], 
-      email: email, 
-      role: isAdmin ? 'admin' : 'user' 
+  const login = (userData) => {
+    const emailLower = userData.email?.toLowerCase() || "";
+    const esAdmin = emailLower.endsWith('@porter.com') || emailLower.includes('admin');
+
+    const usuarioFinal = {
+      ...userData,
+      rol: esAdmin ? 'admin' : (userData.rol || 'user')
     };
-    setUser(newUserData);
-    setIngresos(prev => [...prev, newUserData]);
+
+    setUser(usuarioFinal);
+    setIngresos(prev => {
+      const existe = prev.find(u => u.email === usuarioFinal.email);
+      if (existe) return prev;
+      return [...prev, usuarioFinal];
+    });
+
+    localStorage.setItem('usuario', JSON.stringify(usuarioFinal));
   };
 
-  const agregarReserva = (nuevaReserva) => {
-    setReservasGlobales(prev => [...prev, { ...nuevaReserva, id: Date.now() }]);
+  const logout = () => {
+    setUser(null);
+    localStorage.clear();
   };
-
-  const logout = () => setUser(null);
 
   useEffect(() => {
+    const usuarioGuardado = localStorage.getItem('usuario');
+    if (usuarioGuardado) {
+      const parsedUser = JSON.parse(usuarioGuardado);
+      setUser(parsedUser);
+      setIngresos([parsedUser]);
+    }
     setLoading(false);
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout, ingresos, reservasGlobales, agregarReserva }}>
+    <AuthContext.Provider value={{ user, loading, login, logout, ingresos, setIngresos }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-// 2. THIS IS THE MISSING PIECE: Export the custom hook
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {

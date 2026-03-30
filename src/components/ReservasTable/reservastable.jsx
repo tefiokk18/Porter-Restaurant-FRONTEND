@@ -7,47 +7,21 @@ const ReservasTable = () => {
   const [reservaEditada, setReservaEditada] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
 
-
   const URL = 'http://localhost:4000/api/reservas';
-
 
   const obtenerConfig = () => {
     const token = localStorage.getItem('token');
-    return {
-      headers: {
-        'x-token': token 
-      }
-    };
+    return { headers: { 'x-token': token } };
   };
-
 
   const obtenerReservas = async () => {
     try {
       const config = obtenerConfig();
-
-
-      if (!config.headers['x-token']) {
-        console.warn("No se encontró token de acceso.");
-        return;
-      }
-
+      if (!config.headers['x-token']) return;
       const respuesta = await axios.get(URL, config);
-      setReservas(respuesta.data);
+      setReservas(respuesta.data.reservas || respuesta.data);
     } catch (error) {
       console.error("Error al traer las reservas", error);
-
-
-      if (error.response?.status === 401) {
-        Swal.fire({
-          title: "Sesión expirada",
-          text: "Por favor, vuelve a iniciar sesión para continuar.",
-          icon: "error",
-          confirmButtonText: "Ir al Login"
-        }).then(() => {
-          localStorage.clear();
-          window.location.href = '/login';
-        });
-      }
     }
   };
 
@@ -57,25 +31,21 @@ const ReservasTable = () => {
 
   const eliminarReserva = async (id) => {
     const result = await Swal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción eliminará la reserva permanentemente",
+      title: "¿Eliminar esta reserva?",
+      text: "Esta acción no se puede deshacer",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar"
+      confirmButtonColor: '#d33',
+      confirmButtonText: "Sí, borrar"
     });
 
     if (result.isConfirmed) {
       try {
-        const config = obtenerConfig();
-        await axios.delete(`${URL}/${id}`, config);
+        await axios.delete(`${URL}/${id}`, obtenerConfig());
         setReservas(reservas.filter(res => res._id !== id));
-        Swal.fire("¡Eliminado!", "La reserva ha sido borrada.", "success");
+        Swal.fire("¡Eliminado!", "La reserva fue removida.", "success");
       } catch (error) {
-        console.error("No se pudo eliminar", error);
-        Swal.fire("Error", "No tienes permisos o el servidor falló.", "error");
+        Swal.fire("Error", "No tienes permisos o el servidor falló", "error");
       }
     }
   };
@@ -83,14 +53,12 @@ const ReservasTable = () => {
   const guardarCambios = async (e) => {
     e.preventDefault();
     try {
-      const config = obtenerConfig();
-      await axios.put(`${URL}/${reservaEditada._id}`, reservaEditada, config);
-
+      await axios.put(`${URL}/${reservaEditada._id}`, reservaEditada, obtenerConfig());
+      
       setReservas(reservas.map(res => res._id === reservaEditada._id ? reservaEditada : res));
       setMostrarModal(false);
-      Swal.fire("¡Actualizado!", "Los datos se guardaron correctamente", "success");
+      Swal.fire("Actualizado", "La reserva se modificó correctamente", "success");
     } catch (error) {
-      console.error("Error al editar", error);
       Swal.fire("Error", "No se pudieron guardar los cambios", "error");
     }
   };
@@ -102,52 +70,30 @@ const ReservasTable = () => {
           <tr>
             <th>ID</th>
             <th>CLIENTE</th>
-            <th>FECHA</th>
-            <th>HORA</th>
-            <th>COMENSALES</th>
+            <th>FECHA / HORA</th>
+            <th>PERSONAS</th>
             <th>ESTADO</th>
             <th>ACCIONES</th>
           </tr>
         </thead>
         <tbody>
           {reservas.length === 0 ? (
-            <tr>
-              <td colSpan="7" style={{ textAlign: 'center', padding: '40px', color: '#999' }}>
-                No hay reservas registradas.
-              </td>
-            </tr>
+            <tr><td colSpan="6" style={{textAlign: 'center', padding: '20px'}}>No hay reservas.</td></tr>
           ) : (
-            reservas.map((reserva) => (
-              <tr key={reserva._id}>
-                <td>{reserva._id.substring(reserva._id.length - 5)}</td>
-                <td className="client-cell">
-                  <span className="client-name">{reserva.nombre || reserva.cliente}</span>
-                  <span className="client-email">{reserva.email}</span>
-                </td>
-                <td>{reserva.fecha}</td>
-                <td>{reserva.horario || reserva.hora}</td>
-                <td>{reserva.comensales}</td>
+            reservas.map((res) => (
+              <tr key={res._id}>
+                <td className="small-id">#{res._id.slice(-4).toUpperCase()}</td>
+                <td><strong>{res.nombre || res.cliente}</strong></td>
+                <td>{res.fecha} - {res.horario || res.hora} hs</td>
+                <td style={{textAlign: 'center'}}>{res.personas || res.cantidad || 1}</td>
                 <td>
-                  <span className={`status-badge ${reserva.estado ? reserva.estado.toLowerCase() : ''}`}>
-                    {reserva.estado}
+                  <span className={`status-badge ${res.estado?.toLowerCase()}`}>
+                    {res.estado}
                   </span>
                 </td>
-                <td>
-                  <button
-                    className="btn-edit"
-                    onClick={() => {
-                      setReservaEditada(reserva);
-                      setMostrarModal(true);
-                    }}
-                  >
-                    ✏️
-                  </button>
-                  <button
-                    className="btn-delete"
-                    onClick={() => eliminarReserva(reserva._id)}
-                  >
-                    🗑️
-                  </button>
+                <td className="actions-cell">
+                  <button className="btn-edit" title="Editar" onClick={() => { setReservaEditada({...res}); setMostrarModal(true); }}>✏️</button>
+                  <button className="btn-delete" title="Eliminar" onClick={() => eliminarReserva(res._id)}>🗑️</button>
                 </td>
               </tr>
             ))
@@ -155,38 +101,73 @@ const ReservasTable = () => {
         </tbody>
       </table>
 
-      {mostrarModal && (
-        <div className="modal-custom">
-          <div className="modal-content">
-            <h3>Editar Reserva</h3>
-            <form onSubmit={guardarCambios}>
-              <div className="form-group">
-                <label>Nombre del Cliente:</label>
-                <input
-                  type="text"
-                  value={reservaEditada.nombre || reservaEditada.cliente || ''}
-                  onChange={(e) => setReservaEditada({ ...reservaEditada, nombre: e.target.value })}
-                  required
-                />
+      {mostrarModal && reservaEditada && (
+        <div className="modal-custom-overlay">
+          <div className="modal-custom-card">
+            <div className="modal-header">
+              <h3>Editar Reserva #{reservaEditada._id.slice(-4)}</h3>
+              <button className="close-x" onClick={() => setMostrarModal(false)}>&times;</button>
+            </div>
+            <form onSubmit={guardarCambios} className="modal-form">
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Nombre del Cliente:</label>
+                  <input
+                    type="text"
+                    value={reservaEditada.nombre || reservaEditada.cliente || ''}
+                    onChange={(e) => setReservaEditada({ ...reservaEditada, nombre: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Personas:</label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={reservaEditada.personas || reservaEditada.cantidad || 1}
+                    onChange={(e) => setReservaEditada({ ...reservaEditada, personas: e.target.value })}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Fecha:</label>
+                  <input
+                    type="date"
+                    value={reservaEditada.fecha}
+                    onChange={(e) => setReservaEditada({ ...reservaEditada, fecha: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Hora:</label>
+                  <input
+                    type="time"
+                    value={reservaEditada.horario || reservaEditada.hora}
+                    onChange={(e) => setReservaEditada({ ...reservaEditada, horario: e.target.value })}
+                    required
+                  />
+                </div>
               </div>
 
               <div className="form-group">
                 <label>Estado de la Reserva:</label>
                 <select
+                  className={`select-status ${reservaEditada.estado?.toLowerCase()}`}
                   value={reservaEditada.estado}
                   onChange={(e) => setReservaEditada({ ...reservaEditada, estado: e.target.value })}
                 >
-                  <option value="Pendiente">Pendiente</option>
-                  <option value="Confirmada">Confirmada</option>
-                  <option value="Cancelada">Cancelada</option>
+                  <option value="Pendiente">🟡 Pendiente</option>
+                  <option value="Confirmada">🟢 Confirmada</option>
+                  <option value="Cancelada">🔴 Cancelada</option>
                 </select>
               </div>
 
-              <div className="modal-actions">
+              <div className="modal-footer">
+                <button type="button" className="btn-cancel" onClick={() => setMostrarModal(false)}>Descartar</button>
                 <button type="submit" className="btn-save">Guardar Cambios</button>
-                <button type="button" onClick={() => setMostrarModal(false)} className="btn-cancel">
-                  Cancelar
-                </button>
               </div>
             </form>
           </div>

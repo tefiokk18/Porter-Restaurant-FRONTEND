@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './Registro.css';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import './registro.css';
 
 const Registro = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         nombre: '',
         email: '',
@@ -20,13 +23,43 @@ const Registro = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
         if (formData.password !== formData.confirmarPassword) {
-            alert("Las contraseñas no coinciden");
-            return;
+            return Swal.fire("Error", "Las contraseñas no coinciden", "error");
         }
-        console.log("Registrando usuario:", formData);
+
+        if (!formData.aceptaTerminos) {
+            return Swal.fire("Atención", "Debes aceptar los términos y condiciones", "info");
+        }
+
+        try {
+           
+            const URL = 'http://localhost:4000/api/registro';
+            const response = await axios.post(URL, {
+                nombre: formData.nombre,
+                email: formData.email,
+                telefono: formData.telefono,
+                password: formData.password,
+                rol: "user"
+            });
+
+  
+            Swal.fire({
+                title: "¡Registro Exitoso!",
+                text: "Tu cuenta ha sido creada. Ahora puedes iniciar sesión.",
+                icon: "success",
+                confirmButtonColor: "#00796b"
+            }).then(() => {
+                navigate('/login'); 
+            });
+
+        } catch (error) {
+            console.error("Error en registro:", error);
+            const mensajeError = error.response?.data?.mensaje || "Hubo un problema con el servidor";
+            Swal.fire("Error al registrar", mensajeError, "error");
+        }
     };
 
     return (
@@ -38,7 +71,6 @@ const Registro = () => {
                 </div>
 
                 <form onSubmit={handleSubmit}>
-
                     <div className="mb-4 text-start">
                         <label className="form-label fw-bold small">Nombre Completo <span className="text-danger">*</span></label>
                         <input
@@ -46,11 +78,11 @@ const Registro = () => {
                             name="nombre"
                             className="form-control custom-input"
                             placeholder="Tu nombre completo"
+                            value={formData.nombre}
                             onChange={handleChange}
                             required
                         />
                     </div>
-
 
                     <div className="mb-4 text-start">
                         <label className="form-label fw-bold small">Correo Electrónico <span className="text-danger">*</span></label>
@@ -59,12 +91,12 @@ const Registro = () => {
                             name="email"
                             className="form-control custom-input"
                             placeholder="tu@email.com"
+                            value={formData.email}
                             onChange={handleChange}
                             required
                         />
                     </div>
 
- 
                     <div className="mb-4 text-start">
                         <label className="form-label fw-bold small">Teléfono <span className="text-danger">*</span></label>
                         <input
@@ -72,49 +104,37 @@ const Registro = () => {
                             name="telefono"
                             className="form-control custom-input"
                             placeholder="+54 381 XXX-XXXX"
+                            value={formData.telefono}
                             onChange={handleChange}
                             required
                         />
                     </div>
 
-
                     <div className="mb-3 text-start">
                         <label className="form-label fw-bold small">Contraseña <span className="text-danger">*</span></label>
-                        <div className="input-group">
-                            <input
-                                type="password"
-                                name="password"
-                                className="form-control custom-input border-end-0"
-                                placeholder="Mínimo 8 caracteres"
-                                onChange={handleChange}
-                                required
-                            />
-                            <span className="input-group-text bg-white border-start-0 custom-input">
-                                <i className="bi bi-eye text-muted"></i>
-                            </span>
-                        </div>
-                        <small className="text-muted mt-1 d-block" style={{ fontSize: '0.8rem' }}>
-                            Debe contener mayúsculas, minúsculas y números
-                        </small>
+                        <input
+                            type="password"
+                            name="password"
+                            className="form-control custom-input"
+                            placeholder="Mínimo 8 caracteres"
+                            value={formData.password}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
 
                     <div className="mb-4 text-start">
                         <label className="form-label fw-bold small">Confirmar Contraseña <span className="text-danger">*</span></label>
-                        <div className="input-group">
-                            <input
-                                type="password"
-                                name="confirmarPassword"
-                                className="form-control custom-input border-end-0"
-                                placeholder="Repite tu contraseña"
-                                onChange={handleChange}
-                                required
-                            />
-                            <span className="input-group-text bg-white border-start-0 custom-input">
-                                <i className="bi bi-eye text-muted"></i>
-                            </span>
-                        </div>
+                        <input
+                            type="password"
+                            name="confirmarPassword"
+                            className="form-control custom-input"
+                            placeholder="Repite tu contraseña"
+                            value={formData.confirmarPassword}
+                            onChange={handleChange}
+                            required
+                        />
                     </div>
-
 
                     <div className="mb-4 d-flex align-items-start gap-2 text-start">
                         <input
@@ -122,11 +142,12 @@ const Registro = () => {
                             name="aceptaTerminos"
                             className="form-check-input mt-1 custom-checkbox"
                             id="terminos"
+                            checked={formData.aceptaTerminos}
                             onChange={handleChange}
                             required
                         />
                         <label className="form-check-label small" htmlFor="terminos">
-                            Acepto los <span className="link-porter">términos y condiciones</span> y la <span className="link-porter">política de privacidad</span> <span className="text-danger">*</span>
+                            Acepto los <span className="link-porter">términos y condiciones</span> <span className="text-danger">*</span>
                         </label>
                     </div>
 

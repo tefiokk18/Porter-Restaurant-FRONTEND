@@ -188,3 +188,29 @@
     justify-content: center;
   }
 }
+
+.nav-admin-simple {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none !important;
+  padding: 5px 10px;
+}
+
+.gear-icon-simple {
+  color: #a0a0a0; 
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.admin-text-simple {
+  color: #002d5a; 
+  font-weight: 800; 
+  font-size: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.nav-admin-simple:hover .admin-text-simple {
+  color: #004a94; 
+}

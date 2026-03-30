@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/authcontext'; // 1. Importamos el hook
+import { useAuth } from '../../context/authcontext';
 import './navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, logout } = useAuth(); // 2. Obtenemos user y la función logout
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate('/home'); // Redirigimos al inicio tras cerrar sesión
+    navigate('/home');
   };
+
+  const isAdmin =
+    user?.rol === 'admin' ||
+    user?.role === 'admin' ||
+    user?.email?.toLowerCase().endsWith('@porter.com') ||
+    user?.email?.toLowerCase().includes('stefadmin');
+
+  const nombreAMostrar = user?.nombre || user?.email?.split('@')[0] || "Usuario";
 
   return (
     <nav className="navbar">
       <div className="nav-container">
         <div className="nav-brand">
-          <img src="/public/imagenes/logo-porter.png" alt="Porter Logo" className="logo-img" />
+          <img src="/imagenes/logo-porter.png" alt="Porter Logo" className="logo-img" />
           <h1 className="brand-name">Porter Brew House</h1>
         </div>
 
@@ -29,41 +37,34 @@ const Navbar = () => {
 
         <div className={`nav-content ${isOpen ? 'is-active' : ''}`}>
           <ul className="nav-links">
-            <Link to="/home">Inicio</Link>
-            <Link to="/aboutus">Quienes Somos</Link>
-            <Link to="/galeria">Galeria</Link>
-            <Link to="/reservas">Reservas</Link>
-            <Link to="/contacto">Contacto</Link>
+            <li><Link to="/home">Inicio</Link></li>
+            <li><Link to="/aboutus">Quienes Somos</Link></li>
+            <li><Link to="/galeria">Galeria</Link></li>
+            <li><Link to="/reservas">Reservas</Link></li>
+            <li><Link to="/contacto">Contacto</Link></li>
           </ul>
 
           <div className="nav-actions">
             <div className="vertical-line"></div>
 
-            {/* 3. Lógica Condicional */}
             {user ? (
               <div className="user-logged-actions" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                
-                {/* Si es Admin, mostramos el acceso al panel */}
-                {user.role === 'admin' && (
-                  <>
-                    <Link to="/reservas" className="nav-link-logged">
-                      <span className="icon">📅</span> Mis Reservas
-                    </Link>
-                    <Link to="/admin" className="nav-link-logged" style={{ fontWeight: 'bold' }}>
-                      <span className="icon">⚙️</span> Admin
-                    </Link>
-                  </>
+
+                {isAdmin && (
+                  <Link to="/admin" className="nav-admin-simple">
+                    <span className="gear-icon-simple">⚙️</span>
+                    <span className="admin-text-simple">Panel Admin</span>
+                  </Link>
                 )}
 
-                <span className="user-welcome">Hola, {user.email.split('@')[0]}</span>
-                
+                <span className="user-welcome">Hola, <strong>{nombreAMostrar}</strong></span>
+
                 <button onClick={handleLogout} className="btn-logout">
                   <span className="icon">↪</span> Salir
                 </button>
               </div>
             ) : (
-              <>
-                {/* Si NO hay usuario, mostramos Login y Registro */}
+              <div className="auth-buttons">
                 <Link to="/login" className="btn-login" style={{ textDecoration: 'none' }}>
                   <span className="icon-user">👤</span> Iniciar Sesión
                 </Link>
@@ -71,7 +72,7 @@ const Navbar = () => {
                 <Link to="/registro" className="btn-register" style={{ textDecoration: 'none' }}>
                   Registrarse
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>

@@ -145,3 +145,42 @@
     min-height: 70vh; 
     margin-bottom: 50px; 
 }
+.role-badge {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.role-admin {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+.role-user {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #90caf9;
+}
+
+.avatar-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.bg-admin { background-color: #c62828; }
+.bg-user { background-color: #00796b; }
+
+.status-online {
+  color: #2e7d32;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
