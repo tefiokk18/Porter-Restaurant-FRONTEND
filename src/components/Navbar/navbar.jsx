@@ -64,13 +64,15 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="auth-buttons">
-                <Link to="/login" className="btn-login" style={{ textDecoration: 'none' }}>
-                  <span className="icon-user">👤</span> Iniciar Sesión
-                </Link>
+                <div className="auth-buttons">
+                  <Link to="/login" className="btn-login" style={{ textDecoration: 'none' }}>
+                    <span className="icon-user">👤</span> Iniciar Sesión
+                  </Link>
 
-                <Link to="/registro" className="btn-register" style={{ textDecoration: 'none' }}>
-                  Registrarse
-                </Link>
+                  <Link to="/registro" className="btn-register" style={{ textDecoration: 'none' }}>
+                    Registrarse
+                  </Link>
+                </div>
               </div>
             )}
           </div>
