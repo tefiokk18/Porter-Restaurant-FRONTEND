@@ -16,7 +16,6 @@ const Reservas = () => {
     notas: ''
   });
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -30,11 +29,13 @@ const Reservas = () => {
     setMensajeError(""); 
 
     try {
-
+      // IMPORTANTE: Puerto 4000
       const respuesta = await fetch('http://localhost:4000/api/reservas', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          // Si tu backend requiere token para reservar, agregalo aquí:
+          // 'Authorization': `Bearer ${localStorage.getItem('token')}` 
         },
         body: JSON.stringify(formData)
       });
@@ -49,14 +50,12 @@ const Reservas = () => {
         });
         e.target.reset();
       } else {
-        setMensajeError(resultado.mensaje || "Hubo un error en los datos.");
+        setMensajeError(resultado.mensaje || "Hubo un error al procesar la reserva.");
       }
     } catch (error) {
-      setMensajeError("No se pudo conectar con el servidor. Revisá tu conexión.");
+      setMensajeError("No se pudo conectar con el servidor. Revisá el puerto 4000.");
     }
   };
-
-  const closeModal = () => setShowModal(false);
 
   return (
     <div className="reservas-page">
@@ -70,12 +69,11 @@ const Reservas = () => {
       <section className="form-section">
         <div className="form-card">
           <h2>Reserva tu Mesa</h2>
-          <p className="form-subtitle">Completa el formulario y nos pondremos en contacto contigo para confirmar</p>
+          <p className="form-subtitle">Completa los datos para coordinar tu visita</p>
 
+          {mensajeError && <div style={{ color: 'white', background: '#e74c3c', padding: '10px', borderRadius: '5px', marginBottom: '15px', textAlign: 'center' }}>{mensajeError}</div>}
 
-          {mensajeError && <div className="alert alert-danger" style={{ color: 'red', marginBottom: '15px' }}>{mensajeError}</div>}
-
-          <form className="booking-form" onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <div className="form-row">
               <div className="form-group">
                 <label>📅 Fecha *</label>
@@ -90,51 +88,38 @@ const Reservas = () => {
                   <option value="21:00">21:00</option>
                   <option value="22:00">22:00</option>
                   <option value="23:00">23:00</option>
-                  <option value="00:00">00:00</option>
                 </select>
               </div>
               <div className="form-group">
                 <label>👥 Comensales *</label>
                 <select name="comensales" value={formData.comensales} onChange={handleChange} required>
-                  <option value="2">2 personas</option>
-                  <option value="4">4 personas</option>
-                  <option value="6">6 personas</option>
-                  <option value="8">8 personas</option>
+                  {[2, 3, 4, 5, 6, 7, 8].map(n => <option key={n} value={n}>{n} personas</option>)}
                 </select>
               </div>
             </div>
 
             <div className="form-group">
-              <label className="label-sucursal">📍 Seleccionar Sucursal *</label>
+              <label>📍 Sucursal *</label>
               <div className="radio-group">
-                <label className="radio-label">
-                  <input type="radio" name="sucursal" value="Yerba Buena" onChange={handleChange} required /> Yerba Buena
-                </label>
-                <label className="radio-label">
-                  <input type="radio" name="sucursal" value="Centro" onChange={handleChange} required /> Centro
-                </label>
+                <label className="radio-label"><input type="radio" name="sucursal" value="Yerba Buena" onChange={handleChange} required /> Yerba Buena</label>
+                <label className="radio-label"><input type="radio" name="sucursal" value="Centro" onChange={handleChange} required /> Centro</label>
               </div>
             </div>
 
             <div className="form-group">
               <label>Nombre Completo *</label>
-              <input type="text" name="nombreCompleto" placeholder="Tu nombre completo" value={formData.nombreCompleto} onChange={handleChange} required />
+              <input type="text" name="nombreCompleto" value={formData.nombreCompleto} onChange={handleChange} required />
             </div>
 
             <div className="form-row">
               <div className="form-group">
                 <label>Correo Electrónico *</label>
-                <input type="email" name="email" placeholder="tu@email.com" value={formData.email} onChange={handleChange} required />
+                <input type="email" name="email" value={formData.email} onChange={handleChange} required />
               </div>
               <div className="form-group">
                 <label>Teléfono *</label>
-                <input type="tel" name="telefono" placeholder="+54 381 XXX-XXXX" value={formData.telefono} onChange={handleChange} required />
+                <input type="tel" name="telefono" value={formData.telefono} onChange={handleChange} required />
               </div>
-            </div>
-
-            <div className="form-group">
-              <label>Solicitudes Especiales (Opcional)</label>
-              <textarea name="notas" value={formData.notas} onChange={handleChange} placeholder="Alergias, preferencias de mesa..." rows="3"></textarea>
             </div>
 
             <button type="submit" className="btn-confirm">Confirmar Reserva</button>
@@ -144,11 +129,11 @@ const Reservas = () => {
 
       {showModal && (
         <div className="modal-overlay-reserva">
-          <div className="modal-content-reserva shadow-lg text-center">
+          <div className="modal-content-reserva">
             <div className="modal-icon-success">✔️</div>
-            <h3 className="fw-bold mb-3">Reserva Registrada</h3>
-            <p className="text-muted">Tu solicitud ha sido enviada con éxito. Te contactaremos pronto.</p>
-            <button className="btn-close-modal-reserva" onClick={closeModal}>Aceptar</button>
+            <h3>¡Reserva Registrada!</h3>
+            <p>Tu solicitud ha sido enviada. Podrás ver el estado en "Mis Reservas".</p>
+            <button className="btn-close-modal-reserva" onClick={() => setShowModal(false)}>Aceptar</button>
           </div>
         </div>
       )}

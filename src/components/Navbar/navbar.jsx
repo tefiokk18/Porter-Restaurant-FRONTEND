@@ -25,8 +25,10 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="nav-container">
         <div className="nav-brand">
-          <img src="/imagenes/logo-porter.png" alt="Porter Logo" className="logo-img" />
-          <h1 className="brand-name">Porter Brew House</h1>
+          <Link to="/home" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none' }}>
+            <img src="/imagenes/logo-porter.png" alt="Porter Logo" className="logo-img" />
+            <h1 className="brand-name">Porter Brew House</h1>
+          </Link>
         </div>
 
         <div className={`menu-icon ${isOpen ? 'open' : ''}`} onClick={() => setIsOpen(!isOpen)}>
@@ -48,7 +50,10 @@ const Navbar = () => {
             <div className="vertical-line"></div>
 
             {user ? (
-              <div className="user-logged-actions" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+              <div className="user-logged-actions">
+                <Link to="/mis-reservas" className="nav-link-logged">
+                  <span className="icon-calendar">📅</span> Mis Reservas
+                </Link>
 
                 {isAdmin && (
                   <Link to="/admin" className="nav-admin-simple">
@@ -56,6 +61,7 @@ const Navbar = () => {
                     <span className="admin-text-simple">Panel Admin</span>
                   </Link>
                 )}
+                
                 <span className="user-welcome">Hola, <strong>{nombreAMostrar}</strong></span>
 
                 <button onClick={handleLogout} className="btn-logout">
@@ -64,11 +70,11 @@ const Navbar = () => {
               </div>
             ) : (
               <div className="auth-buttons">
-                <Link to="/login" className="btn-login" style={{ textDecoration: 'none' }}>
+                <Link to="/login" className="btn-login">
                   <span className="icon-user">👤</span> Iniciar Sesión
                 </Link>
 
-                <Link to="/registro" className="btn-register" style={{ textDecoration: 'none' }}>
+                <Link to="/registro" className="btn-register">
                   Registrarse
                 </Link>
               </div>

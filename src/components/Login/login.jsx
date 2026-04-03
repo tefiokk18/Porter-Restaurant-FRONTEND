@@ -16,7 +16,6 @@ const Login = () => {
         setError(null);
 
         try {
-          
             const respuesta = await fetch('http://localhost:4000/api/login', {
                 method: 'POST',
                 headers: {
@@ -28,14 +27,16 @@ const Login = () => {
             const data = await respuesta.json();
 
             if (respuesta.ok) {
-                localStorage.setItem('token', data.token);
+
                 login({ 
                     nombre: data.nombre, 
                     rol: data.rol, 
-                    email: email 
+                    email: email,
+                    token: data.token 
                 });
 
-                console.log("Login exitoso. Rol detectado:", data.rol);
+                console.log("Login exitoso. Token enviado al contexto.");
+
 
                 if (data.rol === 'admin') {
                     navigate('/admin');

@@ -3,12 +3,29 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+
+  const [user, setUser] = useState(() => {
+    const guardado = localStorage.getItem('usuario');
+    return guardado ? JSON.parse(guardado) : null;
+  });
+
   const [loading, setLoading] = useState(true);
-  
   const [ingresos, setIngresos] = useState([]);
 
+
+  useEffect(() => {
+    if (user) {
+      setIngresos([user]);
+    }
+    setLoading(false);
+  }, [user]);
+
   const login = (userData) => {
+
+    if (!userData.token) {
+      console.warn("Login realizado sin token. Verifica que el backend lo esté enviando.");
+    }
+
     const emailLower = userData.email?.toLowerCase() || "";
     const esAdmin = emailLower.endsWith('@porter.com') || emailLower.includes('admin');
 
@@ -18,29 +35,21 @@ export const AuthProvider = ({ children }) => {
     };
 
     setUser(usuarioFinal);
+ 
+    localStorage.setItem('usuario', JSON.stringify(usuarioFinal));
+    
     setIngresos(prev => {
       const existe = prev.find(u => u.email === usuarioFinal.email);
       if (existe) return prev;
       return [...prev, usuarioFinal];
     });
-
-    localStorage.setItem('usuario', JSON.stringify(usuarioFinal));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.clear();
+    setIngresos([]);
+    localStorage.removeItem('usuario'); 
   };
-
-  useEffect(() => {
-    const usuarioGuardado = localStorage.getItem('usuario');
-    if (usuarioGuardado) {
-      const parsedUser = JSON.parse(usuarioGuardado);
-      setUser(parsedUser);
-      setIngresos([parsedUser]);
-    }
-    setLoading(false);
-  }, []);
 
   return (
     <AuthContext.Provider value={{ user, loading, login, logout, ingresos, setIngresos }}>
