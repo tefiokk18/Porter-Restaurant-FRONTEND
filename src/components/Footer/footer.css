@@ -79,23 +79,7 @@ input, select, textarea {
 .radio-label {
   display: flex;
   align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  font-size: 0.95rem;
-}
-
-.btn-confirm {
-  width: 100%;
-  background: #007a6a;
-  color: white;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background 0.3s;
+  padding: 0 20px;
 }
 
 .btn-confirm:hover { background: #006356; }
@@ -165,12 +149,23 @@ input, select, textarea {
   color: #00bfa5;
   font-size: 1.6rem;
   margin: 0;
-  font-weight: 700;
 }
 
-.porter-info p {
+.footer-column h4 {
+  margin-bottom: 25px;
+  color: #ffffff;
+  border-left: 3px solid #00bfa5;
+  padding-left: 10px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li {
   color: #a0a0a0;
-  line-height: 1.6;
+  margin-bottom: 12px;
   font-size: 0.9rem;
   margin: 0;
   max-width: 250px;

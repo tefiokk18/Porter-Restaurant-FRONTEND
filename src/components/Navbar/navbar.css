@@ -1,3 +1,4 @@
+/* 1. VARIABLES Y BASE */
 :root {
   --primary-teal: #007a6a;
   --dark-blue: #0a2540;
@@ -27,6 +28,7 @@
   padding: 0 20px;
 }
 
+/* 2. BRAND / LOGO */
 .nav-brand {
   display: flex;
   align-items: center;
@@ -44,19 +46,41 @@
   color: var(--dark-blue);
   font-weight: 700;
   margin: 0;
-  letter-spacing: -0.5px;
 }
 
+/* 3. ICONO HAMBURGUESA (Invisible en Desktop) */
+.menu-icon {
+  display: none; /* Se activa en el @media abajo */
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1100;
+}
+
+.menu-icon span {
+  width: 25px;
+  height: 3px;
+  background-color: var(--dark-blue);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* Animación a X */
+.menu-icon.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+.menu-icon.open span:nth-child(2) { opacity: 0; }
+.menu-icon.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+/* 4. CONTENIDO DEL NAV (LINKS Y ACCIONES) */
 .nav-content {
   display: flex;
   align-items: center;
-  gap: 2.5rem; 
+  gap: 2rem; 
 }
 
 .nav-links {
   display: flex;
   list-style: none;
-  gap: 1.8rem; 
+  gap: 1.5rem; 
   margin: 0;
   padding: 0;
 }
@@ -65,26 +89,16 @@
   text-decoration: none;
   color: var(--dark-blue);
   font-weight: 500;
-  font-size: 0.95rem;
   transition: var(--transition);
 }
 
-.nav-links a:hover {
-  color: var(--primary-teal);
-}
+.nav-links a:hover { color: var(--primary-teal); }
 
-/* --- ACCIONES Y BOTONES --- */
-
+/* 5. BOTONES LOGIN / REGISTRO / LOGOUT */
 .nav-actions {
   display: flex;
   align-items: center;
   gap: 1.5rem;
-}
-
-.vertical-line {
-  width: 1px;
-  height: 24px;
-  background-color: #e0e0e0;
 }
 
 .auth-buttons {
@@ -96,67 +110,37 @@
 .btn-login {
   text-decoration: none !important;
   color: var(--dark-blue);
-  font-weight: 500;
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.95rem;
-  transition: var(--transition);
+  gap: 6px;
+  white-space: nowrap;
 }
 
 .btn-register {
-  background-color: var(--primary-teal) !important;
+  background-color: var(--primary-teal);
   color: white !important;
   padding: 10px 22px;
   border-radius: 10px; 
   font-weight: 600;
-  font-size: 0.95rem;
   text-decoration: none !important;
+  white-space: nowrap;
   transition: var(--transition);
 }
 
 .btn-register:hover {
-  background-color: #006356 !important;
+  background-color: #006356;
   transform: translateY(-1px);
-}
-
-/* --- ESTILOS USUARIO LOGUEADO --- */
-
-.user-logged-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.nav-link-logged {
-  text-decoration: none !important;
-  color: var(--dark-blue);
-  font-weight: 600;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.user-welcome {
-  font-size: 0.9rem;
-  color: var(--text-gray);
-  border-left: 1px solid #eee;
-  padding-left: 15px;
 }
 
 .btn-logout {
   background: none;
-  border: 1px solid #eee;
-  color: var(--text-gray);
+  border: 1px solid #e0e0e0;
   padding: 6px 12px;
   border-radius: 8px;
-  font-weight: 500;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
-  transition: var(--transition);
+  gap: 6px;
 }
 
 .btn-logout:hover {
@@ -164,47 +148,43 @@
   border-color: var(--danger-red);
 }
 
-/* --- MENÚ MOBILE --- */
-
-.menu-icon {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  cursor: pointer;
-}
-
-.menu-icon span {
-  width: 25px;
-  height: 3px;
-  background-color: var(--dark-blue);
-  transition: 0.3s;
-}
-
-@media (max-width: 1100px) {
-  .nav-content { gap: 1.5rem; }
-  .brand-name { font-size: 1.2rem; }
-}
-
+/* 6. RESPONSIVE (MÓVIL) */
 @media (max-width: 992px) {
-  .menu-icon { display: flex; }
+  .menu-icon {
+    display: flex;
+  }
+
   .nav-content {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 280px;
+    right: -100%; /* Empieza fuera de pantalla */
+    width: 280px; /* Ancho del menú lateral */
     height: 100vh;
-    background: white;
+    background-color: white;
     flex-direction: column;
     padding: 80px 30px;
-    transition: 0.4s;
+    transition: 0.4s ease-in-out;
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
     align-items: flex-start;
+    z-index: 1050;
   }
-  .nav-content.is-active { right: 0; }
+
+  .nav-content.is-active {
+    right: 0; /* Entra desde la derecha */
+  }
+
   .nav-links, .nav-actions, .auth-buttons, .user-logged-actions {
     flex-direction: column;
     width: 100%;
     align-items: flex-start;
   }
-  .vertical-line { display: none; }
+
+  .btn-register, .btn-logout {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .vertical-line {
+    display: none;
+  }
 }
