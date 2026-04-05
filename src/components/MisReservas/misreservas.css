@@ -1,89 +1,151 @@
 /* MisReservas.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
 .reservas-container {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 20px;
-  font-family: 'Inter', sans-serif; /* O la fuente que uses en Porter */
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 0 25px;
+  font-family: 'Inter', sans-serif;
+  color: #1a1a1a;
 }
 
 .titulo-seccion {
-  font-size: 2rem;
-  font-weight: 300;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 20px;
-  margin-bottom: 30px;
-  color: #222;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
 }
 
+.subtitulo-seccion {
+  color: #666;
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+/* Contenedor de la Tarjeta */
 .reserva-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px;
+  padding: 30px;
   margin-bottom: 20px;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
   background-color: #fff;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .reserva-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: #e5e7eb;
 }
 
-/* Estado: Eliminada/Cancelada */
-.reserva-card.cancelled {
-  background-color: #f9f9f9;
-  border-color: #eee;
-  opacity: 0.7;
+/* Info del Usuario y Reserva */
+.info-reserva h2 {
+  margin: 0 0 12px 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111;
 }
 
-.info-reserva h3 {
-  margin: 0 0 8px 0;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+.detalles-grid {
+  display: grid;
+  grid-template-cols: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 15px;
 }
 
-.fecha-reserva {
-  color: #666;
-  font-style: italic;
-  margin-bottom: 5px;
+.detalle-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: #4b5563;
 }
 
+.detalle-item span {
+  margin-right: 8px;
+}
+
+/* Badges de Estado Modernos */
 .badge {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
 }
 
-.badge-pending { background: #fff3cd; color: #856404; }
-.badge-confirmed { background: #d4edda; color: #155724; }
-.badge-cancelled { background: #f8d7da; color: #721c24; }
-
-.btn-cancelar {
-  background: transparent;
-  color: #dc3545;
-  border: 1px solid #dc3545;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s;
+.badge-pendiente { 
+  background-color: #fffbeb; 
+  color: #b45309; 
+  border-color: #fde68a;
 }
 
-.btn-cancelar:hover {
-  background: #dc3545;
+.badge-confirmado { 
+  background-color: #ecfdf5; 
+  color: #047857; 
+  border-color: #a7f3d0;
+}
+
+.badge-cancelado { 
+  background-color: #fef2f2; 
+  color: #b91c1c; 
+  border-color: #fecaca;
+}
+
+/* Botones de Acción */
+.acciones-reserva {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-detalles {
+  background: #111827;
   color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-@media (max-width: 600px) {
+.btn-detalles:hover {
+  background: #000;
+}
+
+.btn-cancelar-link {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.btn-cancelar-link:hover {
+  color: #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
   .reserva-card {
     flex-direction: column;
     align-items: flex-start;
   }
-  .btn-cancelar {
-    margin-top: 15px;
+  
+  .acciones-reserva {
     width: 100%;
+    margin-top: 20px;
+    flex-direction: row;
   }
 }
