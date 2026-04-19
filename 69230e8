@@ -1,0 +1,31 @@
+[33m6861770[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Merge branch 'main' of https://github.com/tefiokk18/Porter-Restaurant-FRONTEND
+[33m69230e8[m corregi mis reservas, reservas, tabla de reservas, footer y navbar
+[33mf29f0e6[m corregi algunas cosas
+[33m0321737[m cambie el nombre de la pagina
+[33mea55761[m Merge pull request #3 from tefiokk18/aboutme
+[33m32e4b3b[m[33m ([m[1;31morigin/aboutme[m[33m, [m[1;32maboutme[m[33m)[m corregi quienes somos por quien soy
+[33mfb24ec2[m[33m ([m[1;31morigin/footer[m[33m, [m[1;32mfooter[m[33m)[m corregi el logo del footer
+[33m3955cb2[m Merge pull request #1 from tefiokk18/navbar
+[33m4797ada[m[33m ([m[1;31morigin/navbar[m[33m, [m[1;32mnavbar[m[33m)[m añadi la logica hamburguesa para mobiles y corregi el superpuesto del boton inicio de seccion con el registro
+[33m9165c4b[m rutas arregladas
+[33mccd002d[m galeria arreglado
+[33m19fa614[m home corregido
+[33m31571dc[m mayusculas arreglado
+[33m283c02e[m error de importacion corregido
+[33ma8bb1f2[m corregido reservas
+[33m396a271[m modifique login, reservas, usuarios, administrador, rutas y navbar
+[33mdf47e6c[m cambios realizados
+[33m85922f7[m feat: tabla de admin con axios, delete y edit modal
+[33m0172178[m front terminado
+[33ma769633[m arregle contacto
+[33ma466633[m corregi tabla de reservas, usuario y autenticacion
+[33me4c0796[m Fix: finalizando merge y resolviendo conflictos
+[33m9f70d62[m corregi enlaces, agregue panel administrador, gestion de reservas y usuarios
+[33mc91d09d[m feat: corrección de diseño en Contacto e integración de mapa
+[33m492037f[m arregle rutas, paginas y agregue imagenes
+[33mc9d07ed[m feat: agregada pagina de galeria con filtros y filas tematicas
+[33m4d065a6[m estructura de carpetas arreglada
+[33m41511d1[m Finalizado Login, Registro y Contacto
+[33mb7bf9b2[m Componentes de Login y Registro recuperados
+[33mfbc7dc7[m agregue footer, home, reservas y modifique rutas
+[33m163a3ca[m navbar completo
