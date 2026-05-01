@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/authcontext';
-import './MisReservas.css'; // Asegurate de que el nombre del archivo CSS sea correcto
+import './misreservas.css'; 
 
 const MisReservas = () => {
   const [reservas, setReservas] = useState([]);
@@ -48,7 +48,6 @@ const MisReservas = () => {
 
   return (
     <div className="reservas-container">
-      {/* Encabezado Estilo Admin */}
       <h1 className="titulo-seccion">Mis Reservas</h1>
       <p className="subtitulo-seccion">
         Hola <strong>{user?.nombre || 'Pia'}</strong>, aquí podés gestionar tus próximas visitas.
