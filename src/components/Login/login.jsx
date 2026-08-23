@@ -6,7 +6,7 @@ import './login.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null); 
+    const [error, setError] = useState(null);
 
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -28,11 +28,11 @@ const Login = () => {
 
             if (respuesta.ok) {
 
-                login({ 
-                    nombre: data.nombre, 
-                    rol: data.rol, 
+                login({
+                    nombre: data.nombre,
+                    rol: data.rol,
                     email: email,
-                    token: data.token 
+                    token: data.token
                 });
 
                 console.log("Login exitoso. Token enviado al contexto.");
@@ -44,7 +44,7 @@ const Login = () => {
                     navigate('/home');
                 }
             } else {
-                setError(data.mensaje || "Credenciales incorrectas");
+                setError(data.mensaje || "Ocurrió un error al iniciar sesión");
             }
         } catch (err) {
             console.error("Error en la conexión:", err);
