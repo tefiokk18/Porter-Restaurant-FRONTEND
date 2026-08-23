@@ -9,8 +9,7 @@ const ReservasTable = () => {
   const [reservaEditada, setReservaEditada] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
 
-  const URL = 'http://localhost:4000/api/reservas';
-
+  const API_RESERVAS = 'http://localhost:4000/api/reservas';
   const obtenerConfig = useCallback(() => {
     const token = localStorage.getItem('token');
     return { headers: { 'x-token': token } };
@@ -19,8 +18,7 @@ const ReservasTable = () => {
   const obtenerReservas = useCallback(async () => {
     try {
       const config = obtenerConfig();
-      const respuesta = await axios.get(URL, config);
-
+      const respuesta = await axios.get(API_RESERVAS, config);    
       const datos = respuesta.data.reservas || respuesta.data;
       setReservas(Array.isArray(datos) ? datos : []);
     } catch (error) {
@@ -29,7 +27,7 @@ const ReservasTable = () => {
         Swal.fire("Sesión expirada", "Por favor, iniciá sesión nuevamente.", "warning");
       }
     }
-  }, [URL, obtenerConfig]);
+  }, [API_RESERVAS, obtenerConfig]);
 
   useEffect(() => {
     if (user) {
