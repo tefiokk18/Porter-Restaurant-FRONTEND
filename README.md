@@ -1,18 +1,54 @@
-# React + Vite
+# 🍽️ Porter Restaurant - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web desarrollada como sistema de gestión de reservas para el bar **Porter** en Tucumán.
 
-Currently, two official plugins are available:
+## 👥 Integrantes del Grupo
+* Luciana Roldán Vicecci
+* Pia Juárez Aban
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+## 🚀 Tecnologías Utilizadas
+* **React** (Vite)
+* **CSS / Estilos personalizados**
+* **Axios** para el consumo de la API
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## ⚙️ Scripts Disponibles
+En el directorio del proyecto, podés ejecutar:
+* `npm run dev`: Inicia la aplicación en modo de desarrollo (local).
+* `npm run build`: Compila la aplicación para producción en la carpeta `dist`.
+* `npm run preview`: Previsualiza la compilación de producción localmente.
 
-Note: This will impact Vite dev & build performances.
+## 🔐 Variables de Entorno
+Para que el frontend pueda comunicarse correctamente con el backend, es necesario crear un archivo `.env` en la raíz del proyecto basado en el siguiente ejemplo:
 
-## Expanding the ESLint configuration
+```env
+VITE_API_URL=http://localhost:4000/api
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Instrucciones de Instalación y Ejecución
+1. Clonar el repositorio:
+   ```bash
+   git clone [https://github.com/tefiokk18/Porter-Restaurant-FRONTEND.git](https://github.com/tefiokk18/Porter-Restaurant-FRONTEND.git)
+Entrar al directorio del proyecto:
+
+Bash
+
+
+cd Porter-Restaurant-FRONTEND
+Instalar las dependencias:
+
+Bash
+
+
+npm install
+Configurar el archivo .env con la URL de la API correspondiente.
+
+Iniciar el servidor de desarrollo:
+
+Bash
+
+
+npm run dev
+🔗 Links de Interés
+Repositorio Backend: Porter Restaurant Backend
+
+Despliegue (Deploy): Porter Restaurant Frontend en Vercel 
