@@ -10,6 +10,7 @@ const ReservasTable = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
 
   const API_RESERVAS = 'http://localhost:4000/api/reservas';
+
   const obtenerConfig = useCallback(() => {
     const token = localStorage.getItem('token');
     return { headers: { 'x-token': token } };
@@ -18,7 +19,7 @@ const ReservasTable = () => {
   const obtenerReservas = useCallback(async () => {
     try {
       const config = obtenerConfig();
-      const respuesta = await axios.get(API_RESERVAS, config);    
+      const respuesta = await axios.get(API_RESERVAS, config);
       const datos = respuesta.data.reservas || respuesta.data;
       setReservas(Array.isArray(datos) ? datos : []);
     } catch (error) {
@@ -49,7 +50,7 @@ const ReservasTable = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`${URL}/${id}`, obtenerConfig());
+        await axios.delete(`${API_RESERVAS}/${id}`, obtenerConfig());
         setReservas(reservas.filter(res => res._id !== id));
         Swal.fire("¡Eliminado!", "La reserva fue removida.", "success");
       } catch (error) {
@@ -61,7 +62,7 @@ const ReservasTable = () => {
   const guardarCambios = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`${URL}/${reservaEditada._id}`, reservaEditada, obtenerConfig());
+      await axios.put(`${API_RESERVAS}/${reservaEditada._id}`, reservaEditada, obtenerConfig());
       setReservas(reservas.map(res => res._id === reservaEditada._id ? reservaEditada : res));
       setMostrarModal(false);
       Swal.fire("Actualizado", "La reserva se modificó correctamente", "success");
@@ -94,19 +95,30 @@ const ReservasTable = () => {
             reservas.map((res) => (
               <tr key={res._id}>
                 <td className="small-id">#{res._id.slice(-4).toUpperCase()}</td>
-                <td><strong>{res.nombreCompleto || res.nombre || res.cliente}</strong></td>
+                <td><strong>{res.nombreCompleto}</strong></td>
                 <td>{res.fecha ? new Date(res.fecha).toLocaleDateString('es-AR') : 'N/A'} - {res.horario || res.hora} hs</td>
-                <td style={{ textAlign: 'center' }}>{res.comensales || res.personas || res.cantidad}</td>
+                <td style={{ textAlign: 'center' }}>{res.comensales}</td>
                 <td>
                   <span className={`status-badge ${res.estado?.toLowerCase()}`}>
                     {res.estado || 'PENDIENTE'}
                   </span>
                 </td>
                 <td className="actions-cell">
-                  <button className="btn-edit" title="Editar" aria-label="Editar reserva" onClick={() => {/* tu lógica de editar */ }}>
+                  <button
+                    className="btn-edit"
+                    title="Editar"
+                    aria-label="Editar reserva"
+                    onClick={() => {
+                      setReservaEditada(res);
+                      setMostrarModal(true);
+                    }}>
                     ✏️
                   </button>
-                  <button className="btn-delete" title="Eliminar" aria-label="Eliminar reserva" onClick={() => {/* tu lógica de eliminar */ }}>
+                  <button
+                    className="btn-delete"
+                    title="Eliminar"
+                    aria-label="Eliminar reserva"
+                    onClick={() => eliminarReserva(res._id)}>
                     🗑️
                   </button>
                 </td>
@@ -127,26 +139,50 @@ const ReservasTable = () => {
               <div className="form-row">
                 <div className="form-group">
                   <label>Nombre del Cliente:</label>
-                  <input type="text" value={reservaEditada.nombreCompleto || reservaEditada.nombre || ''} onChange={(e) => setReservaEditada({ ...reservaEditada, nombreCompleto: e.target.value })} required />
+                  <input
+                    type="text"
+                    value={reservaEditada.nombreCompleto || ''}
+                    onChange={(e) => setReservaEditada({ ...reservaEditada, nombreCompleto: e.target.value })}
+                    required
+                  />
                 </div>
                 <div className="form-group">
                   <label>Comensales:</label>
-                  <input type="number" min="1" value={reservaEditada.comensales || reservaEditada.personas || 1} onChange={(e) => setReservaEditada({ ...reservaEditada, comensales: e.target.value })} required />
+                  <input
+                    type="number"
+                    min="1"
+                    value={reservaEditada.comensales || 1}
+                    onChange={(e) => setReservaEditada({ ...reservaEditada, comensales: e.target.value })}
+                    required
+                  />
                 </div>
               </div>
               <div className="form-row">
                 <div className="form-group">
                   <label>Fecha:</label>
-                  <input type="date" value={reservaEditada.fecha ? reservaEditada.fecha.split('T')[0] : ''} onChange={(e) => setReservaEditada({ ...reservaEditada, fecha: e.target.value })} required />
+                  <input
+                    type="date"
+                    value={reservaEditada.fecha ? reservaEditada.fecha.split('T')[0] : ''}
+                    onChange={(e) => setReservaEditada({ ...reservaEditada, fecha: e.target.value })}
+                    required
+                  />
                 </div>
                 <div className="form-group">
                   <label>Hora:</label>
-                  <input type="time" value={reservaEditada.horario || reservaEditada.hora || ''} onChange={(e) => setReservaEditada({ ...reservaEditada, horario: e.target.value })} required />
+                  <input
+                    type="time"
+                    value={reservaEditada.horario || reservaEditada.hora || ''}
+                    onChange={(e) => setReservaEditada({ ...reservaEditada, horario: e.target.value })}
+                    required
+                  />
                 </div>
               </div>
               <div className="form-group">
                 <label>Estado de la Reserva:</label>
-                <select className={`select-status ${reservaEditada.estado?.toLowerCase()}`} value={reservaEditada.estado} onChange={(e) => setReservaEditada({ ...reservaEditada, estado: e.target.value })}>
+                <select
+                  className={`select-status ${reservaEditada.estado?.toLowerCase()}`}
+                  value={reservaEditada.estado}
+                  onChange={(e) => setReservaEditada({ ...reservaEditada, estado: e.target.value })}>
                   <option value="Pendiente">🟡 Pendiente</option>
                   <option value="Confirmada">🟢 Confirmada</option>
                   <option value="Cancelada">🔴 Cancelada</option>
