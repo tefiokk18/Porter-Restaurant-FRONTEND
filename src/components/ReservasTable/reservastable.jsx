@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { AuthContext } from '../../context/authcontext';
+import { useAuth } from '../../context/authcontext';
 
 const ReservasTable = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   const [reservas, setReservas] = useState([]);
   const [reservaEditada, setReservaEditada] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
