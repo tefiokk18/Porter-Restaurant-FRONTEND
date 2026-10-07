@@ -1,15 +1,11 @@
 import React, { useState, useContext } from 'react';
-// IMPORTANTE: Si tu archivo está en src/pages/reservas/Reservas.jsx 
-// y tu contexto en src/context/authcontext.jsx, la ruta es esta:
-import { AuthContext } from '../../context/authcontext'; 
+import { AuthContext } from '../../context/authcontext';
 import './reservas.css';
 
 const Reservas = () => {
-  // 1. EXTRAEMOS LOS DATOS DEL CONTEXTO
-  // Agregamos un valor por defecto {} para que no explote si el context falla
   const auth = useContext(AuthContext) || {};
   const { user, loading: authLoading } = auth;
-  
+
   const [showModal, setShowModal] = useState(false);
   const [mensajeError, setMensajeError] = useState("");
 
@@ -24,7 +20,7 @@ const Reservas = () => {
     notas: ''
   });
 
-  // 2. PROTECCIÓN CONTRA PANTALLA BLANCA
+
   if (authLoading) {
     return <div className="text-center py-20">Cargando datos de usuario...</div>;
   }
@@ -39,7 +35,7 @@ const Reservas = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMensajeError(""); 
+    setMensajeError("");
 
     if (!user || !user.token) {
       setMensajeError("Debes iniciar sesión para realizar una reserva.");
@@ -51,7 +47,7 @@ const Reservas = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-token': user.token 
+          'x-token': user.token
         },
         body: JSON.stringify(formData)
       });
@@ -67,8 +63,9 @@ const Reservas = () => {
       } else {
         setMensajeError(resultado.mensaje || "Error al procesar la reserva.");
       }
-    } catch (error) {
-      setMensajeError("Error de conexión con el servidor (Puerto 4000).");
+    } catch () {
+      
+      Swal.fire("Error", "No pudimos procesar tu reserva. Por favor, intentá nuevamente en unos minutos.", "error");
     }
   };
 
