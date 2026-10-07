@@ -23,11 +23,15 @@ const ReservasTable = () => {
       const datos = respuesta.data.reservas || respuesta.data;
       setReservas(Array.isArray(datos) ? datos : []);
     } catch (error) {
-      console.error("Error al traer las reservas:", error);
-      if (error.response?.status === 401) {
-        Swal.fire("Sesión expirada", "Por favor, iniciá sesión nuevamente.", "warning");
-      }
-    }
+  console.error("Error al traer las reservas:", error);
+  
+  if (error.response?.status === 401) {
+    Swal.fire("Sesión expirada", "Por favor, iniciá sesión nuevamente.", "warning");
+  } else {
+    
+    Swal.fire("Error", "No pudimos procesar tu reserva. Por favor, intentá nuevamente en unos minutos.", "error");
+  }
+}
   }, [API_RESERVAS, obtenerConfig]);
 
   useEffect(() => {
