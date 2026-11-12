@@ -1,28 +1,21 @@
-
 .galeria-page-container {
     min-height: 100vh;
 }
-
-
 .galeria-hero {
     height: 45vh;
     min-height: 350px;
     background: url('/public/imagenes/restaurante5.jpg') center/cover no-repeat;
     position: relative;
 }
-
 .hero-overlay {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.6); 
     z-index: 1;
 }
-
 .z-3 {
     z-index: 3;
 }
-
-
 .btn-filter {
     padding: 10px 24px;
     border-radius: 12px;
@@ -32,47 +25,36 @@
     font-weight: 500;
     transition: all 0.3s ease;
 }
-
 .btn-filter:hover {
     background-color: #dee2e6;
 }
-
 .btn-filter.active {
     background-color: #00796b !important; 
     color: white !important;
     box-shadow: 0 4px 12px rgba(0, 121, 107, 0.3);
 }
-
-
 .border-teal {
     border-color: #00796b !important;
 }
-
 .galeria-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .galeria-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1) !important;
 }
-
 .img-wrapper {
     height: 280px; 
 }
-
 .galeria-img {
     width: 100%;
     height: 100%;
     object-fit: cover; 
     transition: transform 0.5s ease;
 }
-
 .galeria-card:hover .galeria-img {
     transform: scale(1.1);
 }
-
-
 @media (max-width: 768px) {
     .img-wrapper {
         height: 220px;

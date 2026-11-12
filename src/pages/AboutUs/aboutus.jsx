@@ -5,13 +5,38 @@ const AboutUs = () => {
     return (
         <div className="about-container">
             <section className="about-hero">
-                <h1>Sobre Mí</h1>
-                <p>Conocé más sobre mi perfil, habilidades y enfoque en el mundo IT.</p>
+                <h1>SOBRE NOSOTRAS</h1>
+                <p>Conocé más sobre nuestro perfil, habilidades y enfoque en el mundo IT.</p>
             </section>
 
             <section className="about-content">
                 <div className="about-text">
-                    <h2>Mi Perfil Profesional</h2>
+                    <h2>Stephania Juarez</h2>
+                    <p>
+                        Soy una persona apasionada por la tecnología, con formación en ciberseguridad, redes y programación básica.
+                        Me especializo en el desarrollo de soluciones prácticas orientadas a mejorar la experiencia de los usuarios
+                        y optimizar procesos digitales.
+                    </p>
+
+                    <p>
+                        Cuento con conocimientos en soporte técnico, gestión de sistemas y resolución de problemas, lo que me permite
+                        adaptarme rápidamente a distintos entornos y desafíos. Me interesa especialmente el área de seguridad informática
+                        y el desarrollo de herramientas que aporten valor real.
+                    </p>
+
+                    <p>
+                        He participado en el desarrollo de proyectos como sistemas de gestión de reservas, enfocados en la eficiencia,
+                        organización y facilidad de uso, buscando mejorar tanto la experiencia del cliente como la administración del servicio.
+                    </p>
+
+                    <p>
+                        Me caracterizo por ser una persona proactiva, con aprendizaje constante y enfoque en la mejora continua.
+                        Busco seguir creciendo en el área IT, incorporando nuevas tecnologías y enfrentando desafíos que impulsen
+                        mi desarrollo profesional.
+                    </p>
+                </div>
+                <div className="about-text-2">
+                    <h2>Luciana Roldan </h2>
                     <p>
                         Soy una persona apasionada por la tecnología, con formación en ciberseguridad, redes y programación básica.
                         Me especializo en el desarrollo de soluciones prácticas orientadas a mejorar la experiencia de los usuarios

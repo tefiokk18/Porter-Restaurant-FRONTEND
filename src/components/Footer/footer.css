@@ -1,35 +1,29 @@
-/* --- RESETEO DE ALTURA PARA ELIMINAR ESPACIO EN BLANCO --- */
 html, body, #root {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* MODIFICACIÓN PARA EL FOOTER PEGADO ABAJO */
 .reservas-page { 
   background-color: #f9f9f9; 
-  display: flex;             /* Activamos Flexbox */
-  flex-direction: column;    /* Los elementos se apilan verticalmente */
-  min-height: 100%;          /* Cambiado de 100vh a 100% para mayor compatibilidad */
+  display: flex;            
+  flex-direction: column;    
+  min-height: 100%;          
 }
 
-/* Esta sección crecerá para ocupar todo el espacio sobrante */
-/* empujando al footer al final */
 .reservas-hero, .form-section, .info-extra {
   flex-shrink: 0; 
 }
 
-/* El footer se mantiene al final */
 .footer-wrapper {
-  margin-top: auto;          /* MAGIA: Empuja el footer hacia abajo */
+  margin-top: auto;         
   background-color: #0a1622; 
   color: #ffffff;
   padding: 80px 8% 30px 8%; 
   width: 100%;
-  box-sizing: border-box;    /* Asegura que el padding no genere scroll extra */
+  box-sizing: border-box;    
 }
 
-/* RESTO DE TU CÓDIGO SIN CAMBIOS */
 .reservas-hero {
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
               url('../../assets/img/hero-bg.jpg') no-repeat center center/cover;

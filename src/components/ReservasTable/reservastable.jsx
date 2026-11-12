@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { AuthContext } from '../../context/authcontext'; // Ajustá la ruta si es necesario
+import { AuthContext } from '../../context/authcontext'; 
 
 const ReservasTable = () => {
-  const { user } = useContext(AuthContext); // Extraemos el usuario que tiene el token
+  const { user } = useContext(AuthContext); 
   const [reservas, setReservas] = useState([]);
   const [reservaEditada, setReservaEditada] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
 
   const URL = 'http://localhost:4000/api/reservas';
 
-  // Función centralizada para obtener el token del contexto o localStorage
+
   const obtenerConfig = () => {
     const token = user?.token || localStorage.getItem('token');
     return { headers: { 'x-token': token } };
@@ -20,12 +20,10 @@ const ReservasTable = () => {
   const obtenerReservas = async () => {
     try {
       const config = obtenerConfig();
-      // Si no hay token, no intentamos la petición para evitar el 401 innecesario
       if (!config.headers['x-token']) return;
 
       const respuesta = await axios.get(URL, config);
       
-      // Manejo flexible de la respuesta del backend
       const datos = respuesta.data.reservas || respuesta.data;
       setReservas(Array.isArray(datos) ? datos : []);
     } catch (error) {
@@ -37,7 +35,7 @@ const ReservasTable = () => {
   };
 
   useEffect(() => {
-    // Solo pedimos reservas si el usuario está cargado
+
     if (user) {
       obtenerReservas();
     }
@@ -70,8 +68,7 @@ const ReservasTable = () => {
     e.preventDefault();
     try {
       await axios.put(`${URL}/${reservaEditada._id}`, reservaEditada, obtenerConfig());
-      
-      // Actualizamos el estado local para reflejar los cambios sin recargar
+
       setReservas(reservas.map(res => res._id === reservaEditada._id ? reservaEditada : res));
       setMostrarModal(false);
       Swal.fire("Actualizado", "La reserva se modificó correctamente", "success");
@@ -113,8 +110,15 @@ const ReservasTable = () => {
                   </span>
                 </td>
                 <td className="actions-cell">
-                  <button className="btn-edit" title="Editar" onClick={() => { setReservaEditada({...res}); setMostrarModal(true); }}>✏️</button>
-                  <button className="btn-delete" title="Eliminar" onClick={() => eliminarReserva(res._id)}>🗑️</button>
+                  <button className="btn-edit" 
+                  title="Editar" 
+                  aria-label= 'Editar reserva' 
+                  onClick={() => { setReservaEditada({...res}); setMostrarModal(true); }}>✏️</button>
+                  
+                  <button className="btn-delete" 
+                  title="Eliminar" 
+                  aria-label='Eliminar reserva' 
+                  onClick={() => eliminarReserva(res._id)}>🗑️</button>
                 </td>
               </tr>
             ))
@@ -122,7 +126,6 @@ const ReservasTable = () => {
         </tbody>
       </table>
 
-      {/* Modal de Edición */}
       {mostrarModal && reservaEditada && (
         <div className="modal-custom-overlay">
           <div className="modal-custom-card">
